@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-02-27 16:31",
+  "updatedAt": "2026-02-27 16:32",
   "news": [
+    {
+      "id": 946326,
+      "text": "Polymarket bettors appear to have insider-traded on a market designed to catch insider traders.<br/>At least 12 wallets collectively made over $1 million bettin",
+      "summary": "At least 12 wallets on Polymarket profited over $1 million through insider trading before the ZachXBT investigation results were released, with one tr",
+      "score": 95,
+      "grade": "A+",
+      "signal": "short",
+      "source": "Coindesk",
+      "link": "https://www.coindesk.com/markets/2026/02/27/polymarket-bettors-appear-to-have-insider-traded-on-a-market-designed-to-catch-insider-traders",
+      "ts": "2026-02-27T05:48:31.772291Z"
+    },
     {
       "id": 513999,
       "text": "Trump Media to Airdrop Crypto Tokens to Shareholders in February",
@@ -11,6 +22,28 @@
       "source": "Decrypt",
       "link": "https://decrypt.co/355174",
       "ts": "2026-01-20T20:25:17.901459Z"
+    },
+    {
+      "id": 946450,
+      "text": "According to an investigation into the ZachXBT insider probe event on Polymarket, more than 3.63k addresses bet on “Axiom,” with 56.2% ending up profitable. Amo",
+      "summary": "In the ZachXBT insider investigation on Polymarket, over 3,630 addresses bet on &quot;Axiom,&quot; with 56.2% making a profit. Among the top 10 most p",
+      "score": 70,
+      "grade": "B+",
+      "signal": "neutral",
+      "source": "tree",
+      "link": "https://twitter.com/WuBlockchain/status/2027263385868583331",
+      "ts": "2026-02-27T06:03:50.985Z"
+    },
+    {
+      "id": 943759,
+      "text": "BLOOMBERG: Polymarket Insider-Trading Bet May Have Attracted More Insiders",
+      "summary": "According to Bloomberg, the insider trading incident on the Polymarket platform may have attracted more insiders.",
+      "score": 65,
+      "grade": "B",
+      "signal": "neutral",
+      "source": "News Websites",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-26/polymarket-insider-trading-bet-may-have-attracted-more-insiders",
+      "ts": "2026-02-26T23:57:06.526084Z"
     },
     {
       "id": 942415,
@@ -55,39 +88,6 @@
       "source": "Twitter",
       "link": "https://twitter.com/coindesk/status/2027066212707123408",
       "ts": "2026-02-26T17:00:21.944548Z"
-    },
-    {
-      "id": 939550,
-      "text": "Crypto Meme Coin Scandals: What Investors Should Watch Out For",
-      "summary": "The news story is about the cryptocurrency memecoin scandal and covers matters that investors should be wary of.",
-      "score": 65,
-      "grade": "B",
-      "signal": "neutral",
-      "source": "News Websites",
-      "link": "https://financefeeds.com/crypto-meme-coin-scandals/",
-      "ts": "2026-02-26T17:28:53.261771Z"
-    },
-    {
-      "id": 937332,
-      "text": "7/ Broox's main wallet was identified via messages sent in a private chat and all directly related addresses were graphed out.<br/><br/>FarpaWkzio7WQVpQeu2eURvN",
-      "summary": "Broox&#39;s main wallet was identified through private chat messages, and related addresses were mapped. Because the associated addresses were involve",
-      "score": 65,
-      "grade": "B+",
-      "signal": "neutral",
-      "source": "Twitter",
-      "link": "https://twitter.com/zachxbt/status/2027016255534960810",
-      "ts": "2026-02-26T13:41:51.329623Z"
-    },
-    {
-      "id": 937331,
-      "text": "6/ One of the targeted KOLs was Marcell, a trader with a poor reputation for using his followers on X and Telegram as exit liquidity.<br/><br/>He was targeted d",
-      "summary": "Marcell, a trader with a poor reputation, was targeted as a KOL because he bought large amounts of token supply from a private wallet (i.e., a bundlin",
-      "score": 65,
-      "grade": "B",
-      "signal": "neutral",
-      "source": "Twitter",
-      "link": "https://twitter.com/zachxbt/status/2027016239265300490",
-      "ts": "2026-02-26T13:41:48.169265Z"
     }
   ],
   "tweets": [
