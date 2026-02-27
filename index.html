@@ -93,6 +93,7 @@ header h1 span { color:#7c6af7; }
 
 .title   { font-size:13px; line-height:1.55; color:#ddd; margin-bottom:8px; }
 .summary { font-size:12px; color:#777; line-height:1.5; border-top:1px solid #1e1e2e; padding-top:7px; }
+.cn-summary { color:#aaa; font-size:13px; }
 .card-foot { display:flex; justify-content:space-between; font-size:11px; color:#444; margin-top:8px; }
 
 /* 推文卡片 */
@@ -204,7 +205,7 @@ function renderNews(grid) {
         </div>
       </div>
       <div class="title">${n.text||''}</div>
-      ${n.summary ? `<div class="summary">${n.summary}</div>` : ''}
+      ${n.summary ? `<div class="summary cn-summary">${n.summary}</div>` : ''}
       <div class="card-foot"><span>💯 ${n.score}分</span></div>
     </a>`).join('');
 }
@@ -222,6 +223,7 @@ function renderTweets(grid) {
         </div>
       </div>
       <div class="tweet-text">${t.text||''}</div>
+      ${t.summary ? `<div class="summary cn-summary">${t.summary}</div>` : ''}
       <div class="tweet-stats">
         <span>❤️ ${(t.likes||0).toLocaleString()}</span>
         <span>🔁 ${(t.retweets||0).toLocaleString()}</span>
