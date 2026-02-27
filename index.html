@@ -150,8 +150,9 @@
 </div>
 
 <script>
-// ⬇ 部署 Cloudflare Worker 后把 URL 填在这里
-const WORKER = 'https://news-proxy.YOUR_SUBDOMAIN.workers.dev';
+// 直接调 6551 API（token 仅用于读取新闻，无资金风险）
+const API = 'https://ai.6551.io';
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRVlxTUJSWjJSalI1WFRDenFTRXRMbVJqNHRTTG92cGNVYWl6QWQ5c1B5b3AiLCJub25jZSI6IjgwMTdiYmI4LTlmYzUtNGU3NS04YmExLWFmNWVmOWQzMjA3NyIsImlhdCI6MTc3MjE3NjYzNywianRpIjoiZDhlODU4MWEtNjgwZi00ZWU0LWIyMmMtODYyZmY0ZmU4YjlhIn0.8fhFuiTkqV6C169FqokPNPuK5GecYr_C0Mwx5o0orlU';
 
 let allNews = [], filter = 'all', timer, cd = 300;
 
@@ -224,9 +225,9 @@ async function fetchNews() {
   document.getElementById('statusText').textContent = '加载中...';
   const limit = +document.getElementById('limitSel').value;
   try {
-    const resp = await fetch(`${WORKER}/api/news/search`, {
+    const resp = await fetch(`${API}/open/news_search`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ limit })
     });
     const json = await resp.json();
