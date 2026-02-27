@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOCR Oracle — AI-Driven Prediction Engine</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0A1428;--bg2:#0D1B35;--bg3:#111E3A;
+  --cyan:#00F5FF;--green:#00FF9F;--purple:#7C6AF7;
+  --text:#E0E8FF;--muted:#4A6080;--border:rgba(0,245,255,0.12);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px;}
+
+/* ── Nav ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,20,40,0.7);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 5%;display:flex;align-items:center;height:64px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--green));
+  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#0A1428;}
+.logo-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:.5px;}
+.logo-text span{color:var(--cyan);}
+.nav-links{display:flex;gap:32px;margin-left:auto;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;
+  transition:color .2s;letter-spacing:.3px;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{margin-left:32px;background:linear-gradient(135deg,var(--cyan),var(--green));
+  color:#0A1428;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;
+  text-decoration:none;transition:opacity .2s;}
+.nav-cta:hover{opacity:.85;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;}
+.hamburger span{width:22px;height:2px;background:var(--cyan);border-radius:2px;}
+
+/* ── Hero ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:100px 5% 60px;position:relative;overflow:hidden;text-align:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,245,255,0.07) 0%,transparent 70%),
+             radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,255,159,0.05) 0%,transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:.04;
+  background-image:linear-gradient(var(--cyan) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--cyan) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{position:relative;z-index:1;max-width:900px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);
+  border-radius:20px;padding:6px 16px;font-size:12px;color:var(--cyan);
+  font-weight:600;letter-spacing:.5px;margin-bottom:32px;
+}
+.badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+.hero h1{font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;}
+.hero h1 .grad{background:linear-gradient(135deg,var(--cyan) 0%,var(--green) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:600px;margin:0 auto 48px;line-height:1.7;}
+.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+.hstat{text-align:center;}
+.hstat-num{font-size:clamp(28px,4vw,48px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+.hstat-num .unit{font-size:.5em;color:var(--cyan);}
+.hstat-label{font-size:12px;color:var(--muted);margin-top:6px;letter-spacing:.5px;text-transform:uppercase;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--cyan),var(--green));color:#0A1428;
+  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:700;
+  text-decoration:none;transition:all .2s;letter-spacing:.3px;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,245,255,0.3);}
+.btn-secondary{
+  background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.25);color:var(--cyan);
+  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;
+  text-decoration:none;transition:all .2s;
+}
+.btn-secondary:hover{background:rgba(0,245,255,0.15);}
+
+/* ── Section ── */
+section{padding:80px 5%;}
+.section-label{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-size:clamp(24px,3.5vw,40px);font-weight:800;margin-bottom:12px;letter-spacing:-.5px;}
+.section-sub{font-size:14px;color:var(--muted);max-width:500px;line-height:1.7;}
+.section-head{margin-bottom:48px;}
+
+/* ── Glass Card ── */
+.glass{
+  background:rgba(13,27,53,0.6);backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:16px;
+  transition:all .25s;
+}
+.glass:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,245,255,0.08);}
+
+/* ── Live Predictions ── */
+.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.pred-card{padding:24px;}
+.pred-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px;}
+.pred-title{font-size:14px;font-weight:600;line-height:1.5;flex:1;}
+.pred-badge{
+  flex-shrink:0;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.pred-badge.high{background:rgba(0,255,159,0.12);color:var(--green);border:1px solid rgba(0,255,159,0.25);}
+.pred-badge.med{background:rgba(0,245,255,0.1);color:var(--cyan);border:1px solid rgba(0,245,255,0.2);}
+.pred-badge.low{background:rgba(124,106,247,0.12);color:var(--purple);border:1px solid rgba(124,106,247,0.25);}
+.pred-prob{font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;}
+.pred-prob.bull{color:var(--green);}
+.pred-prob.bear{color:#FF6B6B;}
+.pred-prob.neut{color:var(--cyan);}
+.pred-meta{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.progress-wrap{margin-bottom:16px;}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;transition:width 1s ease;
+  background:linear-gradient(90deg,var(--cyan),var(--green));}
+.progress-fill.bear{background:linear-gradient(90deg,#FF6B6B,#FF4444);}
+.pred-footer{display:flex;align-items:center;justify-content:space-between;}
+.pred-time{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.pred-link{font-size:11px;color:var(--cyan);text-decoration:none;font-weight:600;
+  display:flex;align-items:center;gap:4px;transition:opacity .2s;}
+.pred-link:hover{opacity:.7;}
+
+/* ── Performance ── */
+.perf-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;}
+.chart-card{padding:28px;}
+.chart-title{font-size:14px;font-weight:600;margin-bottom:24px;color:var(--muted);}
+.chart-wrap{position:relative;height:200px;}
+svg.chart{width:100%;height:100%;}
+.metrics-col{display:flex;flex-direction:column;gap:16px;}
+.metric-card{padding:20px;}
+.metric-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.metric-val{font-size:28px;font-weight:900;letter-spacing:-1px;}
+.metric-val.cyan{color:var(--cyan);}
+.metric-val.green{color:var(--green);}
+.metric-val.purple{color:var(--purple);}
+.metric-change{font-size:11px;margin-top:4px;}
+.metric-change.up{color:var(--green);}
+.metric-change.down{color:#FF6B6B;}
+
+/* ── Scanner Table ── */
+.scanner-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{border-bottom:1px solid var(--border);}
+th{padding:12px 16px;text-align:left;font-size:11px;color:var(--muted);
+  font-weight:600;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;}
+tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background .15s;cursor:pointer;}
+tbody tr:hover{background:rgba(0,245,255,0.03);}
+td{padding:14px 16px;white-space:nowrap;}
+.td-market{font-weight:600;font-size:13px;max-width:220px;white-space:normal;line-height:1.4;}
+.td-our{font-weight:700;color:var(--cyan);}
+.td-mkt{color:var(--muted);}
+.td-vol{color:var(--text);}
+.td-end{color:var(--muted);font-size:12px;}
+.diff-pos{color:var(--green);font-weight:700;}
+.diff-neg{color:#FF6B6B;font-weight:700;}
+.scanner-card{padding:0;overflow:hidden;}
+.scanner-card .scanner-wrap{padding:0;}
+
+/* ── X Feed ── */
+.feed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+.tweet-card{padding:24px;}
+.tweet-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.tweet-avatar{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#0A1428;
+}
+.tweet-name{font-size:14px;font-weight:700;}
+.tweet-handle{font-size:12px;color:var(--muted);}
+.tweet-text{font-size:13px;line-height:1.7;color:var(--text);margin-bottom:16px;}
+.tweet-text a{color:var(--cyan);text-decoration:none;}
+.tweet-stats{display:flex;gap:20px;}
+.tstat{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+.tstat span{color:var(--text);font-weight:600;}
+.tweet-time{font-size:11px;color:var(--muted);margin-top:12px;}
+
+/* ── Footer ── */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:60px 5% 32px;
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand .logo-text{font-size:20px;margin-bottom:12px;display:block;}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:280px;}
+.footer-col h4{font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:16px;}
+.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;
+  margin-bottom:10px;transition:color .15s;}
+.footer-col a:hover{color:var(--text);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;gap:16px;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.disclaimer{font-size:11px;color:var(--muted);max-width:600px;line-height:1.6;opacity:.7;}
+
+/* ── Live dot ── */
+.live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:600;}
+.live-dot::before{content:'';width:6px;height:6px;background:var(--green);
+  border-radius:50%;animation:pulse 1.5s infinite;}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .perf-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero-stats{gap:24px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- LIVE PREDICTIONS -->
+<section id="predictions">
+  <div class="section-head">
+    <div class="section-label">Live Predictions</div>
+    <h2 class="section-title">AI Probability Engine</h2>
+    <p class="section-sub">Real-time predictions updated every 15 minutes. Confidence intervals derived from multi-model ensemble.</p>
+  </div>
+  <div class="pred-grid" id="predGrid"></div>
+</section>
+
+<!-- PERFORMANCE -->
+<section id="performance" style="background:var(--bg2);">
+  <div class="section-head">
+    <div class="section-label">Performance Dashboard</div>
+    <h2 class="section-title">Track Record</h2>
+    <p class="section-sub">On-chain verified results. Every prediction logged immutably.</p>
+  </div>
+  <div class="perf-grid">
+    <div class="glass chart-card">
+      <div class="chart-title">30-Day Accuracy Curve <span class="live-dot" style="float:right">LIVE</span></div>
+      <div class="chart-wrap">
+        <svg class="chart" viewBox="0 0 600 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00F5FF" stop-opacity=".3"/>
+              <stop offset="100%" stop-color="#00F5FF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,140 C30,130 60,120 90,110 C120,100 150,115 180,95 C210,75 240,80 270,65 C300,50 330,60 360,45 C390,30 420,40 450,28 C480,16 510,22 540,18 C560,15 580,12 600,10" fill="none" stroke="#00F5FF" stroke-width="2.5"/>
+          <path d="M0,140 C30,130 60,120 90,110 C120,100 150,115 180,95 C210,75 240,80 270,65 C300,50 330,60 360,45 C390,30 420,40 450,28 C480,16 510,22 540,18 C560,15 580,12 600,10 L600,200 L0,200 Z" fill="url(#cg)"/>
+          <line x1="0" y1="60" x2="600" y2="60" stroke="rgba(0,255,159,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="8" y="56" fill="#00FF9F" font-size="10" font-family="Inter">80%</text>
+        </svg>
+      </div>
+    </div>
+    <div class="metrics-col">
+      <div class="glass metric-card">
+        <div class="metric-label">30D Accuracy</div>
+        <div class="metric-val cyan">78.4%</div>
+        <div class="metric-change up">↑ +3.2% vs last month</div>
+      </div>
+      <div class="glass metric-card">
+        <div class="metric-label">Avg Edge</div>
+        <div class="metric-val green">+19.3%</div>
+        <div class="metric-change up">↑ vs market consensus</div>
+      </div>
+      <div class="glass metric-card">
+        <div class="metric-label">Predictions</div>
+        <div class="metric-val purple">2,341</div>
+        <div class="metric-change up">↑ 47 this week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCANNER -->
+<section id="scanner">
+  <div class="section-head">
+    <div class="section-label">Polymarket Scanner</div>
+    <h2 class="section-title">Market Intelligence</h2>
+    <p class="section-sub">Live comparison of our AI probability vs market odds. Positive edge = opportunity.</p>
+  </div>
+  <div class="glass scanner-card">
+    <div class="scanner-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Our Prob</th>
+            <th>Market Odds</th>
+            <th>Edge</th>
+            <th>Volume</th>
+            <th>End Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="scannerBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- X FEED -->
+<section id="feed" style="background:var(--bg2);">
+  <div class="section-head">
+    <div class="section-label">X Agent Feed</div>
+    <h2 class="section-title">Latest Intelligence</h2>
+    <p class="section-sub">Real-time signals from our AI agent monitoring prediction markets.</p>
+  </div>
+  <div class="feed-grid" id="feedGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo-text">SOCR <span style="color:var(--cyan)">Oracle</span></span>
+      <p class="footer-desc">AI-Driven Prediction Engine delivering on-chain verified alpha. Probabilities only — no financial advice.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#predictions">Live Predictions</a>
+      <a href="#scanner">Market Scanner</a>
+      <a href="#performance">Performance</a>
+      <a href="#api">API Access</a>
+    </div>
+    <div class="footer-col">
+      <h4>Data Sources</h4>
+      <a href="#">Polymarket</a>
+      <a href="#">Manifold Markets</a>
+      <a href="#">Kalshi</a>
+      <a href="#">On-Chain Data</a>
+    </div>
+    <div class="footer-col">
+      <h4>Verification</h4>
+      <a href="#">On-Chain Logs</a>
+      <a href="#">Methodology</a>
+      <a href="#">Audit Reports</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 SOCR Oracle. All rights reserved.</span>
+    <p class="disclaimer">⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice. Prediction markets involve risk. Past accuracy does not guarantee future results. Always do your own research.</p>
+  </div>
+</footer>
+
+<script>
+// ── Data ──
+const PREDICTIONS = [
+  { title:"BTC above $100K by end of Q2 2026?", prob:72, dir:"bull", conf:"HIGH", time:"23d 14h", link:"https://polymarket.com" },
+  { title:"Fed cuts rates in May 2026 FOMC meeting?", prob:58, dir:"neut", conf:"MED", time:"61d 8h", link:"https://polymarket.com" },
+  { title:"ETH flips BTC market cap in 2026?", prob:18, dir:"bear", conf:"LOW", time:"307d 0h", link:"https://polymarket.com" },
+  { title:"Trump signs crypto reserve bill before July?", prob:64, dir:"bull", conf:"HIGH", time:"44d 3h", link:"https://polymarket.com" },
+  { title:"Solana ETF approved by SEC in 2026?", prob:81, dir:"bull", conf:"HIGH", time:"120d 6h", link:"https://polymarket.com" },
+  { title:"US enters recession in 2026?", prob:34, dir:"bear", conf:"MED", time:"307d 0h", link:"https://polymarket.com" },
+];
+
+const SCANNER = [
+  { market:"Will BTC exceed $100K by June 2026?",    our:72, mkt:65, vol:"$2.4M",  end:"Jun 30" },
+  { market:"Fed rate cut in May 2026?",              our:58, mkt:52, vol:"$1.1M",  end:"May 7"  },
+  { market:"Solana ETF approved 2026?",              our:81, mkt:74, vol:"$890K",  end:"Dec 31" },
+  { market:"Trump crypto bill signed Q2?",           our:64, mkt:58, vol:"$670K",  end:"Jun 30" },
+  { market:"ETH/BTC flippening 2026?",               our:18, mkt:22, vol:"$430K",  end:"Dec 31" },
+  { market:"US recession declared 2026?",            our:34, mkt:29, vol:"$1.8M",  end:"Dec 31" },
+  { market:"Polymarket reaches $1B monthly volume?", our:55, mkt:48, vol:"$320K",  end:"Dec 31" },
+];
+
+const TWEETS = [
+  {
+    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
+    text:`🔮 NEW SIGNAL: BTC/USD Q2 probability updated to <strong style="color:var(--green)">72%</strong> (↑4% from yesterday).\n\nOn-chain accumulation patterns + macro tailwinds aligning. Fed pivot probability now at 58%.\n\n<a href="#">Full analysis →</a>`,
+    likes:"847", rt:"312", time:"2 hours ago"
+  },
+  {
+    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
+    text:`⚡ EDGE ALERT: Solana ETF approval probability at <strong style="color:var(--cyan)">81%</strong> vs market 74%.\n\nOur model detects regulatory language shift in SEC filings. +7% edge opportunity.\n\n<a href="#">View on Polymarket →</a>`,
+    likes:"1.2K", rt:"589", time:"5 hours ago"
+  },
+  {
+    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
+    text:`📊 WEEKLY RECAP: 78.4% accuracy across 47 predictions this week.\n\nTop call: Trump crypto bill (+19% edge). Miss: ETH gas fees (off by 8%).\n\nOn-chain verification: <a href="#">0x7f3a...d92c</a>`,
+    likes:"2.1K", rt:"934", time:"1 day ago"
+  },
+];
+
+// ── Render Predictions ──
+function renderPredictions() {
+  const grid = document.getElementById('predGrid');
+  grid.innerHTML = PREDICTIONS.map(p => `
+    <div class="glass pred-card">
+      <div class="pred-header">
+        <div class="pred-title">${p.title}</div>
+        <span class="pred-badge ${p.conf.toLowerCase()}">${p.conf}</span>
+      </div>
+      <div class="pred-prob ${p.dir}">${p.prob}<span style="font-size:.45em;opacity:.7">%</span></div>
+      <div class="pred-meta">AI Confidence · Updated 15m ago</div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Probability</span><span>${p.prob}%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill ${p.dir==='bear'?'bear':''}" style="width:0%" data-w="${p.prob}%"></div>
+        </div>
+      </div>
+      <div class="pred-footer">
+        <span class="pred-time">⏱ ${p.time} remaining</span>
+        <a href="${p.link}" target="_blank" class="pred-link">Polymarket ↗</a>
+      </div>
+    </div>`).join('');
+
+  // Animate bars
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill').forEach(el => {
+      el.style.width = el.dataset.w;
+    });
+  }, 100);
+}
+
+// ── Render Scanner ──
+function renderScanner() {
+  const tbody = document.getElementById('scannerBody');
+  tbody.innerHTML = SCANNER.map(r => {
+    const edge = r.our - r.mkt;
+    const edgeClass = edge > 0 ? 'diff-pos' : 'diff-neg';
+    const edgeStr = (edge > 0 ? '+' : '') + edge + '%';
+    return `<tr>
+      <td class="td-market">${r.market}</td>
+      <td class="td-our">${r.our}%</td>
+      <td class="td-mkt">${r.mkt}%</td>
+      <td class="${edgeClass}">${edgeStr}</td>
+      <td class="td-vol">${r.vol}</td>
+      <td class="td-end">${r.end}</td>
+      <td><a href="https://polymarket.com" target="_blank" style="color:var(--cyan);font-size:11px;text-decoration:none;font-weight:600;">View ↗</a></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Render Feed ──
+function renderFeed() {
+  document.getElementById('feedGrid').innerHTML = TWEETS.map(t => `
+    <div class="glass tweet-card">
+      <div class="tweet-header">
+        <div class="tweet-avatar">${t.avatar}</div>
+        <div>
+          <div class="tweet-name">${t.name}</div>
+          <div class="tweet-handle">${t.handle}</div>
+        </div>
+        <span class="live-dot" style="margin-left:auto;font-size:10px">LIVE</span>
+      </div>
+      <div class="tweet-text">${t.text.replace(/\n/g,'<br>')}</div>
+      <div class="tweet-stats">
+        <span class="tstat">❤️ <span>${t.likes}</span></span>
+        <span class="tstat">🔁 <span>${t.rt}</span></span>
+      </div>
+      <div class="tweet-time">${t.time}</div>
+    </div>`).join('');
+}
+
+// ── Counter animation ──
+function animateCounter(el, target, suffix='') {
+  let start = 0, duration = 2000, step = 16;
+  const inc = target / (duration / step);
+  const timer = setInterval(() => {
+    start = Math.min(start + inc, target);
+    el.textContent = (Number.isInteger(target) ? Math.floor(start) : start.toFixed(1)) + suffix;
+    if (start >= target) clearInterval(timer);
+  }, step);
+}
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded', () => {
+  renderPredictions();
+  renderScanner();
+  renderFeed();
+
+  // Animate hero numbers
+  setTimeout(() => {
+    animateCounter(document.getElementById('accuracy'), 78.4, '%');
+    animateCounter(document.getElementById('vol'), 4.2, '');
+  }, 400);
+
+  // Refresh scanner every 30s (simulate live)
+  setInterval(() => {
+    SCANNER.forEach(r => {
+      r.mkt = Math.max(5, Math.min(95, r.mkt + (Math.random() - 0.5) * 2));
+    });
+    renderScanner();
+  }, 30000);
+});
+</script>
+</body>
+</html>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">S</div>
+    <span class="logo-text">SOCR <span>Oracle</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#predictions">Live Predictions</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#scanner">Markets</a></li>
+    <li><a href="#feed">X Feed</a></li>
+    <li><a href="#api">API</a></li>
+  </ul>
+  <a href="#predictions" class="nav-cta">Get Alpha →</a>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED
+    </div>
+    <h1>Predict Markets<br>with <span class="grad">Machine Precision</span></h1>
+    <p class="hero-sub">AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>
+    No noise. No opinions. Pure probability.</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num" id="accuracy">78.4<span class="unit">%</span></div>
+        <div class="hstat-label">Accuracy Rate</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">2,341<span class="unit" style="color:var(--green)"></span></div>
+        <div class="hstat-label">Predictions Made</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">$<span id="vol">4.2</span><span class="unit">M</span></div>
+        <div class="hstat-label">Volume Tracked</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" style="color:var(--green)">+19.3<span class="unit">%</span></div>
+        <div class="hstat-label">Edge vs Market</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#predictions" class="btn-primary">View Live Predictions</a>
+      <a href="#scanner" class="btn-secondary">Scan Markets</a>
+    </div>
+  </div>
+</section>
