@@ -7,115 +7,118 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#0A1428;--bg2:#0D1B35;--bg3:#111E3A;
+  --bg:#0A1428;--bg2:#0D1B35;
   --cyan:#00F5FF;--green:#00FF9F;--purple:#7C6AF7;
   --text:#E0E8FF;--muted:#4A6080;--border:rgba(0,245,255,0.12);
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
-
-/* ── Scrollbar ── */
 ::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px;}
 
-/* ── Nav ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(10,20,40,0.7);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 5%;display:flex;align-items:center;height:64px;
-}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(10,20,40,0.8);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0 5%;
+  display:flex;align-items:center;height:64px;gap:8px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;}
 .logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--green));
-  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#0A1428;}
-.logo-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:.5px;}
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;color:#0A1428;}
+.logo-text{font-size:18px;font-weight:800;color:#fff;}
 .logo-text span{color:var(--cyan);}
-.nav-links{display:flex;gap:32px;margin-left:auto;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;
-  transition:color .2s;letter-spacing:.3px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;}
 .nav-links a:hover{color:var(--cyan);}
-.nav-cta{margin-left:32px;background:linear-gradient(135deg,var(--cyan),var(--green));
-  color:#0A1428;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;
-  text-decoration:none;transition:opacity .2s;}
-.nav-cta:hover{opacity:.85;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;}
-.hamburger span{width:22px;height:2px;background:var(--cyan);border-radius:2px;}
+.nav-cta{background:linear-gradient(135deg,var(--cyan),var(--green));color:#0A1428;
+  padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;
+  text-decoration:none;white-space:nowrap;margin-left:8px;}
 
-/* ── Hero ── */
-.hero{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  padding:100px 5% 60px;position:relative;overflow:hidden;text-align:center;
+/* LANG DROPDOWN */
+.lang-wrap{position:relative;margin-left:12px;}
+.lang-trigger{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,245,255,0.06);border:1px solid rgba(0,245,255,0.2);
+  color:var(--text);font-size:13px;font-weight:500;
+  padding:6px 12px;border-radius:8px;cursor:pointer;
+  transition:all .15s;white-space:nowrap;
 }
-.hero-bg{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,245,255,0.07) 0%,transparent 70%),
-             radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,255,159,0.05) 0%,transparent 60%);
+.lang-trigger:hover{border-color:var(--cyan);color:var(--cyan);}
+.lang-trigger svg{transition:transform .2s;}
+.lang-trigger.open svg{transform:rotate(180deg);}
+.lang-dropdown{
+  position:absolute;right:0;top:calc(100% + 8px);
+  background:#0f1e3a;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.6);
+  min-width:160px;z-index:300;
+  opacity:0;pointer-events:none;transform:translateY(-8px);
+  transition:all .18s;
 }
-.hero-grid{
-  position:absolute;inset:0;opacity:.04;
-  background-image:linear-gradient(var(--cyan) 1px,transparent 1px),
-                   linear-gradient(90deg,var(--cyan) 1px,transparent 1px);
-  background-size:60px 60px;
+.lang-dropdown.open{opacity:1;pointer-events:all;transform:translateY(0);}
+.lang-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px;font-size:13px;cursor:pointer;
+  transition:background .12s;color:var(--muted);
 }
+.lang-opt:hover{background:rgba(0,245,255,0.06);color:var(--text);}
+.lang-opt.active{color:var(--cyan);background:rgba(0,245,255,0.08);}
+.lang-opt .flag{font-size:16px;}
+.lang-opt .check{margin-left:auto;color:var(--cyan);font-size:12px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:100px 5% 60px;position:relative;overflow:hidden;text-align:center;}
+.hero-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,245,255,0.07),transparent 70%),
+             radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,255,159,0.05),transparent 60%);}
+.hero-grid{position:absolute;inset:0;opacity:.04;
+  background-image:linear-gradient(var(--cyan) 1px,transparent 1px),linear-gradient(90deg,var(--cyan) 1px,transparent 1px);
+  background-size:60px 60px;}
 .hero-content{position:relative;z-index:1;max-width:900px;}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
+.hero-badge{display:inline-flex;align-items:center;gap:8px;
   background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);
   border-radius:20px;padding:6px 16px;font-size:12px;color:var(--cyan);
-  font-weight:600;letter-spacing:.5px;margin-bottom:32px;
-}
+  font-weight:600;letter-spacing:.5px;margin-bottom:32px;}
 .badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
-.hero h1{font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;}
-.hero h1 .grad{background:linear-gradient(135deg,var(--cyan) 0%,var(--green) 100%);
+.hero h1{font-size:clamp(40px,7vw,84px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;}
+.grad{background:linear-gradient(135deg,var(--cyan),var(--green));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:600px;margin:0 auto 48px;line-height:1.7;}
-.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+.hero-sub{font-size:clamp(14px,2vw,17px);color:var(--muted);max-width:580px;margin:0 auto 48px;line-height:1.7;}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
 .hstat{text-align:center;}
-.hstat-num{font-size:clamp(28px,4vw,48px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+.hstat-num{font-size:clamp(28px,4vw,46px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
 .hstat-num .unit{font-size:.5em;color:var(--cyan);}
-.hstat-label{font-size:12px;color:var(--muted);margin-top:6px;letter-spacing:.5px;text-transform:uppercase;}
+.hstat-label{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.5px;text-transform:uppercase;}
 .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-.btn-primary{
-  background:linear-gradient(135deg,var(--cyan),var(--green));color:#0A1428;
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--green));color:#0A1428;
   padding:14px 32px;border-radius:10px;font-size:14px;font-weight:700;
-  text-decoration:none;transition:all .2s;letter-spacing:.3px;
-}
+  text-decoration:none;transition:all .2s;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,245,255,0.3);}
-.btn-secondary{
-  background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.25);color:var(--cyan);
-  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;
-  text-decoration:none;transition:all .2s;
-}
+.btn-secondary{background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.25);color:var(--cyan);
+  padding:14px 32px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;}
 .btn-secondary:hover{background:rgba(0,245,255,0.15);}
 
-/* ── Section ── */
+/* SECTIONS */
 section{padding:80px 5%;}
-.section-label{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:12px;}
+.section-label{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
 .section-title{font-size:clamp(24px,3.5vw,40px);font-weight:800;margin-bottom:12px;letter-spacing:-.5px;}
 .section-sub{font-size:14px;color:var(--muted);max-width:500px;line-height:1.7;}
 .section-head{margin-bottom:48px;}
 
-/* ── Glass Card ── */
-.glass{
-  background:rgba(13,27,53,0.6);backdrop-filter:blur(20px);
-  border:1px solid var(--border);border-radius:16px;
-  transition:all .25s;
-}
+/* GLASS */
+.glass{background:rgba(13,27,53,0.6);backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:16px;transition:all .25s;}
 .glass:hover{border-color:rgba(0,245,255,0.3);transform:translateY(-4px);
   box-shadow:0 16px 48px rgba(0,245,255,0.08);}
 
-/* ── Live Predictions ── */
-.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+/* PRED CARDS */
+.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px;}
 .pred-card{padding:24px;}
 .pred-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px;}
 .pred-title{font-size:14px;font-weight:600;line-height:1.5;flex:1;}
-.pred-badge{
-  flex-shrink:0;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
-  letter-spacing:.5px;text-transform:uppercase;
-}
+.pred-badge{flex-shrink:0;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;}
 .pred-badge.high{background:rgba(0,255,159,0.12);color:var(--green);border:1px solid rgba(0,255,159,0.25);}
 .pred-badge.med{background:rgba(0,245,255,0.1);color:var(--cyan);border:1px solid rgba(0,245,255,0.2);}
 .pred-badge.low{background:rgba(124,106,247,0.12);color:var(--purple);border:1px solid rgba(124,106,247,0.25);}
@@ -124,23 +127,19 @@ section{padding:80px 5%;}
 .pred-prob.bear{color:#FF6B6B;}
 .pred-prob.neut{color:var(--cyan);}
 .pred-meta{font-size:11px;color:var(--muted);margin-bottom:16px;}
-.progress-wrap{margin-bottom:16px;}
-.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
-.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
-.progress-fill{height:100%;border-radius:3px;transition:width 1s ease;
-  background:linear-gradient(90deg,var(--cyan),var(--green));}
+.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin-bottom:16px;}
+.progress-fill{height:100%;border-radius:3px;transition:width 1s ease;background:linear-gradient(90deg,var(--cyan),var(--green));}
 .progress-fill.bear{background:linear-gradient(90deg,#FF6B6B,#FF4444);}
 .pred-footer{display:flex;align-items:center;justify-content:space-between;}
-.pred-time{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;}
-.pred-link{font-size:11px;color:var(--cyan);text-decoration:none;font-weight:600;
-  display:flex;align-items:center;gap:4px;transition:opacity .2s;}
-.pred-link:hover{opacity:.7;}
+.pred-time{font-size:11px;color:var(--muted);}
+.pred-link{font-size:11px;color:var(--cyan);text-decoration:none;font-weight:600;}
+.pred-prediction{font-size:11px;color:#4A6080;line-height:1.6;border-top:1px solid rgba(0,245,255,0.08);padding-top:10px;margin-top:12px;}
 
-/* ── Performance ── */
+/* PERFORMANCE */
 .perf-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;}
 .chart-card{padding:28px;}
 .chart-title{font-size:14px;font-weight:600;margin-bottom:24px;color:var(--muted);}
-.chart-wrap{position:relative;height:200px;}
+.chart-wrap{height:200px;}
 svg.chart{width:100%;height:100%;}
 .metrics-col{display:flex;flex-direction:column;gap:16px;}
 .metric-card{padding:20px;}
@@ -149,112 +148,154 @@ svg.chart{width:100%;height:100%;}
 .metric-val.cyan{color:var(--cyan);}
 .metric-val.green{color:var(--green);}
 .metric-val.purple{color:var(--purple);}
-.metric-change{font-size:11px;margin-top:4px;}
-.metric-change.up{color:var(--green);}
-.metric-change.down{color:#FF6B6B;}
+.metric-change{font-size:11px;margin-top:4px;color:var(--green);}
 
-/* ── Lang Switcher ── */
-.lang-switcher{display:flex;gap:4px;margin-left:16px;}
-.lang-btn{
-  background:transparent;border:1px solid rgba(0,245,255,0.15);
-  color:var(--muted);font-size:11px;font-weight:600;padding:4px 10px;
-  border-radius:6px;cursor:pointer;transition:all .15s;letter-spacing:.3px;
-}
-.lang-btn:hover{border-color:var(--cyan);color:var(--cyan);}
-.lang-btn.active{background:rgba(0,245,255,0.12);border-color:var(--cyan);color:var(--cyan);}
-
-/* ── Scanner Table ── */
+/* TABLE */
 .scanner-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 thead tr{border-bottom:1px solid var(--border);}
-th{padding:12px 16px;text-align:left;font-size:11px;color:var(--muted);
-  font-weight:600;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;}
-tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background .15s;cursor:pointer;}
+th{padding:12px 16px;text-align:left;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;}
+tbody tr{border-bottom:1px solid rgba(255,255,255,0.03);transition:background .15s;}
 tbody tr:hover{background:rgba(0,245,255,0.03);}
 td{padding:14px 16px;white-space:nowrap;}
-.td-market{font-weight:600;font-size:13px;max-width:220px;white-space:normal;line-height:1.4;}
-.td-our{font-weight:700;color:var(--cyan);}
-.td-mkt{color:var(--muted);}
-.td-vol{color:var(--text);}
-.td-end{color:var(--muted);font-size:12px;}
-.diff-pos{color:var(--green);font-weight:700;}
-.diff-neg{color:#FF6B6B;font-weight:700;}
-.scanner-card{padding:0;overflow:hidden;}
-.scanner-card .scanner-wrap{padding:0;}
+.td-market{font-weight:600;font-size:13px;max-width:240px;white-space:normal;line-height:1.4;}
 
-/* ── X Feed ── */
+/* FEED */
 .feed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
 .tweet-card{padding:24px;}
 .tweet-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
-.tweet-avatar{
-  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+.tweet-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;
   background:linear-gradient(135deg,var(--cyan),var(--purple));
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#0A1428;
-}
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#0A1428;}
 .tweet-name{font-size:14px;font-weight:700;}
 .tweet-handle{font-size:12px;color:var(--muted);}
-.tweet-text{font-size:13px;line-height:1.7;color:var(--text);margin-bottom:16px;}
+.tweet-text{font-size:13px;line-height:1.7;margin-bottom:16px;}
 .tweet-text a{color:var(--cyan);text-decoration:none;}
 .tweet-stats{display:flex;gap:20px;}
-.tstat{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;}
-.tstat span{color:var(--text);font-weight:600;}
-.tweet-time{font-size:11px;color:var(--muted);margin-top:12px;}
+.tstat{font-size:12px;color:var(--muted);}
+.tstat b{color:var(--text);}
+.tweet-time{font-size:11px;color:var(--muted);margin-top:10px;}
 
-/* ── Footer ── */
-footer{
-  background:var(--bg2);border-top:1px solid var(--border);
-  padding:60px 5% 32px;
-}
+/* LIVE DOT */
+.live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:600;}
+.live-dot::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 32px;}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
-.footer-brand .logo-text{font-size:20px;margin-bottom:12px;display:block;}
-.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:280px;}
-.footer-col h4{font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:1px;
-  text-transform:uppercase;margin-bottom:16px;}
-.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;
-  margin-bottom:10px;transition:color .15s;}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:280px;margin-top:12px;}
+.footer-col h4{font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:10px;transition:color .15s;}
 .footer-col a:hover{color:var(--text);}
-.footer-bottom{border-top:1px solid var(--border);padding-top:24px;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;gap:16px;}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
 .footer-copy{font-size:12px;color:var(--muted);}
 .disclaimer{font-size:11px;color:var(--muted);max-width:600px;line-height:1.6;opacity:.7;}
 
-/* ── Live dot ── */
-.live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:600;}
-.live-dot::before{content:'';width:6px;height:6px;background:var(--green);
-  border-radius:50%;animation:pulse 1.5s infinite;}
-
-/* ── Responsive ── */
-@media(max-width:900px){
-  .perf-grid{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-}
+/* RESPONSIVE */
+@media(max-width:900px){.perf-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:640px){
   .nav-links,.nav-cta{display:none;}
-  .hamburger{display:flex;}
-  .hero-stats{gap:24px;}
+  .hero-stats{gap:20px;}
   .footer-grid{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;text-align:center;}
+  .footer-bottom{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">S</div>
+    <span class="logo-text">SOCR <span>Oracle</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#predictions" data-i18n="nav.pred">Live Predictions</a></li>
+    <li><a href="#performance" data-i18n="nav.perf">Performance</a></li>
+    <li><a href="#scanner" data-i18n="nav.scan">Markets</a></li>
+    <li><a href="#feed" data-i18n="nav.feed">X Feed</a></li>
+    <li><a href="#api">API</a></li>
+  </ul>
+  <a href="#predictions" class="nav-cta" data-i18n="nav.cta">Get Alpha →</a>
+
+  <!-- LANGUAGE DROPDOWN -->
+  <div class="lang-wrap">
+    <div class="lang-trigger" id="langTrigger" onclick="toggleLangMenu()">
+      <span>🌐</span>
+      <span id="langLabel">English</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-opt active" onclick="setLang('en')" data-lang="en">
+        <span class="flag">🇺🇸</span> English <span class="check">✓</span>
+      </div>
+      <div class="lang-opt" onclick="setLang('zh')" data-lang="zh">
+        <span class="flag">🇨🇳</span> 中文
+      </div>
+      <div class="lang-opt" onclick="setLang('ja')" data-lang="ja">
+        <span class="flag">🇯🇵</span> 日本語
+      </div>
+      <div class="lang-opt" onclick="setLang('ko')" data-lang="ko">
+        <span class="flag">🇰🇷</span> 한국어
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span data-i18n="hero.badge">LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED</span>
+    </div>
+    <h1 data-i18n="hero.h1">Predict Markets<br>with <span class="grad">Machine Precision</span></h1>
+    <p class="hero-sub" data-i18n="hero.sub">AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>No noise. No opinions. Pure probability.</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num"><span id="accuracy">78.4</span><span class="unit">%</span></div>
+        <div class="hstat-label" data-i18n="stat.acc">Accuracy Rate</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">2,341</div>
+        <div class="hstat-label" data-i18n="stat.pred">Predictions Made</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">$<span id="vol">4.2</span><span class="unit">M</span></div>
+        <div class="hstat-label" data-i18n="stat.vol">Volume Tracked</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num" style="color:var(--green)">+19.3<span class="unit">%</span></div>
+        <div class="hstat-label" data-i18n="stat.edge">Edge vs Market</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#predictions" class="btn-primary" data-i18n="btn.pred">View Live Predictions</a>
+      <a href="#scanner" class="btn-secondary" data-i18n="btn.scan">Scan Markets</a>
+    </div>
+  </div>
+</section>
+
 <!-- LIVE PREDICTIONS -->
 <section id="predictions">
   <div class="section-head">
-    <div class="section-label">Live Predictions</div>
-    <h2 class="section-title">AI Probability Engine</h2>
-    <p class="section-sub">Real-time predictions updated every 15 minutes. Confidence intervals derived from multi-model ensemble.</p>
+    <div class="section-label" data-i18n="s.pred.label">Live Predictions</div>
+    <h2 class="section-title" data-i18n="s.pred.title">AI Probability Engine</h2>
+    <p class="section-sub" data-i18n="s.pred.sub">Real-time predictions updated every 15 minutes. Multi-model ensemble analysis.</p>
   </div>
-  <div class="pred-grid" id="predGrid"></div>
+  <div class="pred-grid" id="predGrid"><div style="color:var(--muted);padding:40px;text-align:center;">Loading...</div></div>
 </section>
 
 <!-- PERFORMANCE -->
 <section id="performance" style="background:var(--bg2);">
   <div class="section-head">
-    <div class="section-label">Performance Dashboard</div>
-    <h2 class="section-title">Track Record</h2>
-    <p class="section-sub">On-chain verified results. Every prediction logged immutably.</p>
+    <div class="section-label" data-i18n="s.perf.label">Performance Dashboard</div>
+    <h2 class="section-title" data-i18n="s.perf.title">Track Record</h2>
+    <p class="section-sub" data-i18n="s.perf.sub">On-chain verified results. Every prediction logged immutably.</p>
   </div>
   <div class="perf-grid">
     <div class="glass chart-card">
@@ -267,8 +308,8 @@ footer{
               <stop offset="100%" stop-color="#00F5FF" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <path d="M0,140 C30,130 60,120 90,110 C120,100 150,115 180,95 C210,75 240,80 270,65 C300,50 330,60 360,45 C390,30 420,40 450,28 C480,16 510,22 540,18 C560,15 580,12 600,10" fill="none" stroke="#00F5FF" stroke-width="2.5"/>
-          <path d="M0,140 C30,130 60,120 90,110 C120,100 150,115 180,95 C210,75 240,80 270,65 C300,50 330,60 360,45 C390,30 420,40 450,28 C480,16 510,22 540,18 C560,15 580,12 600,10 L600,200 L0,200 Z" fill="url(#cg)"/>
+          <path d="M0,140 C60,120 120,100 180,85 C240,70 300,55 360,42 C420,30 480,20 600,10" fill="none" stroke="#00F5FF" stroke-width="2.5"/>
+          <path d="M0,140 C60,120 120,100 180,85 C240,70 300,55 360,42 C420,30 480,20 600,10 L600,200 L0,200 Z" fill="url(#cg)"/>
           <line x1="0" y1="60" x2="600" y2="60" stroke="rgba(0,255,159,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
           <text x="8" y="56" fill="#00FF9F" font-size="10" font-family="Inter">80%</text>
         </svg>
@@ -276,19 +317,19 @@ footer{
     </div>
     <div class="metrics-col">
       <div class="glass metric-card">
-        <div class="metric-label">30D Accuracy</div>
+        <div class="metric-label" data-i18n="m.acc">30D Accuracy</div>
         <div class="metric-val cyan">78.4%</div>
-        <div class="metric-change up">↑ +3.2% vs last month</div>
+        <div class="metric-change" data-i18n="m.acc.sub">↑ +3.2% vs last month</div>
       </div>
       <div class="glass metric-card">
-        <div class="metric-label">Avg Edge</div>
+        <div class="metric-label" data-i18n="m.edge">Avg Edge</div>
         <div class="metric-val green">+19.3%</div>
-        <div class="metric-change up">↑ vs market consensus</div>
+        <div class="metric-change" data-i18n="m.edge.sub">↑ vs market consensus</div>
       </div>
       <div class="glass metric-card">
-        <div class="metric-label">Predictions</div>
+        <div class="metric-label" data-i18n="m.total">Predictions</div>
         <div class="metric-val purple">2,341</div>
-        <div class="metric-change up">↑ 47 this week</div>
+        <div class="metric-change" data-i18n="m.total.sub">↑ 47 this week</div>
       </div>
     </div>
   </div>
@@ -297,26 +338,33 @@ footer{
 <!-- SCANNER -->
 <section id="scanner">
   <div class="section-head">
-    <div class="section-label">Polymarket Scanner</div>
-    <h2 class="section-title">Market Intelligence</h2>
-    <p class="section-sub">即将结束的市场实时扫描。<span id="scanUpdated" style="color:var(--cyan);margin-left:8px;font-size:12px;"></span></p>
-    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
-      <span style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:#FF6B6B;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">⚡ 24h内: <span id="cnt24h">-</span>个</span>
-      <span style="background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);color:var(--cyan);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">🕐 48h内: <span id="cnt48h">-</span>个</span>
-      <span style="background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);color:var(--green);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">📅 7天内: <span id="cnt7d">-</span>个</span>
+    <div class="section-label" data-i18n="s.scan.label">Polymarket Scanner</div>
+    <h2 class="section-title" data-i18n="s.scan.title">Market Intelligence</h2>
+    <p class="section-sub">
+      <span data-i18n="s.scan.sub">Live scan of ending markets.</span>
+      <span id="scanUpdated" style="color:var(--cyan);margin-left:8px;font-size:12px;"></span>
+    </p>
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+      <span style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:#FF6B6B;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">
+        ⚡ <span data-i18n="cnt.24h">24h</span>: <span id="cnt24h">-</span>
+      </span>
+      <span style="background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);color:var(--cyan);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">
+        🕐 <span data-i18n="cnt.48h">48h</span>: <span id="cnt48h">-</span>
+      </span>
+      <span style="background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);color:var(--green);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">
+        📅 <span data-i18n="cnt.7d">7d</span>: <span id="cnt7d">-</span>
+      </span>
     </div>
   </div>
-  <div class="glass scanner-card">
+  <div class="glass" style="padding:0;overflow:hidden;">
     <div class="scanner-wrap">
       <table>
         <thead>
           <tr>
-            <th>Market</th>
-            <th>Our Prob</th>
-            <th>Market Odds</th>
-            <th>Edge</th>
-            <th>Volume</th>
-            <th>End Time</th>
+            <th data-i18n="th.market">Market</th>
+            <th data-i18n="th.odds">Odds</th>
+            <th data-i18n="th.vol">Volume</th>
+            <th data-i18n="th.end">End</th>
             <th></th>
           </tr>
         </thead>
@@ -329,9 +377,9 @@ footer{
 <!-- X FEED -->
 <section id="feed" style="background:var(--bg2);">
   <div class="section-head">
-    <div class="section-label">X Agent Feed</div>
-    <h2 class="section-title">Latest Intelligence</h2>
-    <p class="section-sub">Real-time signals from our AI agent monitoring prediction markets.</p>
+    <div class="section-label" data-i18n="s.feed.label">X Agent Feed</div>
+    <h2 class="section-title" data-i18n="s.feed.title">Latest Intelligence</h2>
+    <p class="section-sub" data-i18n="s.feed.sub">Real-time signals from our AI agent monitoring prediction markets.</p>
   </div>
   <div class="feed-grid" id="feedGrid"></div>
 </section>
@@ -339,429 +387,342 @@ footer{
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="logo-text">SOCR <span style="color:var(--cyan)">Oracle</span></span>
-      <p class="footer-desc">AI-Driven Prediction Engine delivering on-chain verified alpha. Probabilities only — no financial advice.</p>
+    <div>
+      <span class="logo-text" style="font-size:20px;">SOCR <span style="color:var(--cyan)">Oracle</span></span>
+      <p class="footer-desc" data-i18n="footer.desc">AI-Driven Prediction Engine delivering on-chain verified alpha. Probabilities only — no financial advice.</p>
     </div>
     <div class="footer-col">
-      <h4>Product</h4>
-      <a href="#predictions">Live Predictions</a>
-      <a href="#scanner">Market Scanner</a>
-      <a href="#performance">Performance</a>
-      <a href="#api">API Access</a>
+      <h4 data-i18n="footer.product">Product</h4>
+      <a href="#predictions" data-i18n="nav.pred">Live Predictions</a>
+      <a href="#scanner" data-i18n="nav.scan">Markets</a>
+      <a href="#performance" data-i18n="nav.perf">Performance</a>
+      <a href="#api">API</a>
     </div>
     <div class="footer-col">
-      <h4>Data Sources</h4>
+      <h4 data-i18n="footer.data">Data Sources</h4>
       <a href="#">Polymarket</a>
-      <a href="#">Manifold Markets</a>
       <a href="#">Kalshi</a>
-      <a href="#">On-Chain Data</a>
+      <a href="#">Manifold</a>
+      <a href="#" data-i18n="footer.chain">On-Chain Data</a>
     </div>
     <div class="footer-col">
-      <h4>Verification</h4>
-      <a href="#">On-Chain Logs</a>
-      <a href="#">Methodology</a>
-      <a href="#">Audit Reports</a>
+      <h4 data-i18n="footer.verify">Verification</h4>
+      <a href="#" data-i18n="footer.logs">On-Chain Logs</a>
+      <a href="#" data-i18n="footer.method">Methodology</a>
       <a href="#">GitHub</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 SOCR Oracle. All rights reserved.</span>
-    <p class="disclaimer">⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice. Prediction markets involve risk. Past accuracy does not guarantee future results. Always do your own research.</p>
+    <p class="disclaimer" data-i18n="footer.disclaimer">⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice. Prediction markets involve risk. Past accuracy does not guarantee future results.</p>
   </div>
 </footer>
 
 <script>
-// ── Data ──
-const PREDICTIONS = [
-  { title:"BTC above $100K by end of Q2 2026?", prob:72, dir:"bull", conf:"HIGH", time:"23d 14h", link:"https://polymarket.com" },
-  { title:"Fed cuts rates in May 2026 FOMC meeting?", prob:58, dir:"neut", conf:"MED", time:"61d 8h", link:"https://polymarket.com" },
-  { title:"ETH flips BTC market cap in 2026?", prob:18, dir:"bear", conf:"LOW", time:"307d 0h", link:"https://polymarket.com" },
-  { title:"Trump signs crypto reserve bill before July?", prob:64, dir:"bull", conf:"HIGH", time:"44d 3h", link:"https://polymarket.com" },
-  { title:"Solana ETF approved by SEC in 2026?", prob:81, dir:"bull", conf:"HIGH", time:"120d 6h", link:"https://polymarket.com" },
-  { title:"US enters recession in 2026?", prob:34, dir:"bear", conf:"MED", time:"307d 0h", link:"https://polymarket.com" },
-];
-
-const SCANNER = [
-  { market:"Will BTC exceed $100K by June 2026?",    our:72, mkt:65, vol:"$2.4M",  end:"Jun 30" },
-  { market:"Fed rate cut in May 2026?",              our:58, mkt:52, vol:"$1.1M",  end:"May 7"  },
-  { market:"Solana ETF approved 2026?",              our:81, mkt:74, vol:"$890K",  end:"Dec 31" },
-  { market:"Trump crypto bill signed Q2?",           our:64, mkt:58, vol:"$670K",  end:"Jun 30" },
-  { market:"ETH/BTC flippening 2026?",               our:18, mkt:22, vol:"$430K",  end:"Dec 31" },
-  { market:"US recession declared 2026?",            our:34, mkt:29, vol:"$1.8M",  end:"Dec 31" },
-  { market:"Polymarket reaches $1B monthly volume?", our:55, mkt:48, vol:"$320K",  end:"Dec 31" },
-];
-
-const TWEETS = [
-  {
-    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
-    text:`🔮 NEW SIGNAL: BTC/USD Q2 probability updated to <strong style="color:var(--green)">72%</strong> (↑4% from yesterday).\n\nOn-chain accumulation patterns + macro tailwinds aligning. Fed pivot probability now at 58%.\n\n<a href="#">Full analysis →</a>`,
-    likes:"847", rt:"312", time:"2 hours ago"
-  },
-  {
-    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
-    text:`⚡ EDGE ALERT: Solana ETF approval probability at <strong style="color:var(--cyan)">81%</strong> vs market 74%.\n\nOur model detects regulatory language shift in SEC filings. +7% edge opportunity.\n\n<a href="#">View on Polymarket →</a>`,
-    likes:"1.2K", rt:"589", time:"5 hours ago"
-  },
-  {
-    avatar:"S", name:"SOCR Oracle", handle:"@SOCR_Oracle",
-    text:`📊 WEEKLY RECAP: 78.4% accuracy across 47 predictions this week.\n\nTop call: Trump crypto bill (+19% edge). Miss: ETH gas fees (off by 8%).\n\nOn-chain verification: <a href="#">0x7f3a...d92c</a>`,
-    likes:"2.1K", rt:"934", time:"1 day ago"
-  },
-];
-
-// ── Render Predictions ──
-function renderPredictions() {
-  const grid = document.getElementById('predGrid');
-  grid.innerHTML = PREDICTIONS.map(p => `
-    <div class="glass pred-card">
-      <div class="pred-header">
-        <div class="pred-title">${p.title}</div>
-        <span class="pred-badge ${p.conf.toLowerCase()}">${p.conf}</span>
-      </div>
-      <div class="pred-prob ${p.dir}">${p.prob}<span style="font-size:.45em;opacity:.7">%</span></div>
-      <div class="pred-meta">AI Confidence · Updated 15m ago</div>
-      <div class="progress-wrap">
-        <div class="progress-label"><span>Probability</span><span>${p.prob}%</span></div>
-        <div class="progress-bar">
-          <div class="progress-fill ${p.dir==='bear'?'bear':''}" style="width:0%" data-w="${p.prob}%"></div>
-        </div>
-      </div>
-      <div class="pred-footer">
-        <span class="pred-time">⏱ ${p.time} remaining</span>
-        <a href="${p.link}" target="_blank" class="pred-link">Polymarket ↗</a>
-      </div>
-    </div>`).join('');
-
-  // Animate bars
-  setTimeout(() => {
-    document.querySelectorAll('.progress-fill').forEach(el => {
-      el.style.width = el.dataset.w;
-    });
-  }, 100);
-}
-
-// ── Render Scanner ──
-// ── i18n ──
-const I18N = {
-  en: {
-    'nav.predictions':'Live Predictions','nav.performance':'Performance',
-    'nav.markets':'Markets','nav.feed':'X Feed','nav.cta':'Get Alpha →',
+// ═══════════════════════════════════════
+// i18n — full site translation system
+// ═══════════════════════════════════════
+const LANGS = {
+  en: { label:'English', flag:'🇺🇸', strings:{
+    'nav.pred':'Live Predictions','nav.perf':'Performance','nav.scan':'Markets',
+    'nav.feed':'X Feed','nav.cta':'Get Alpha →',
     'hero.badge':'LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED',
     'hero.h1':'Predict Markets<br>with <span class="grad">Machine Precision</span>',
     'hero.sub':'AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>No noise. No opinions. Pure probability.',
-    'stat1':'Accuracy Rate','stat2':'Predictions Made','stat3':'Volume Tracked','stat4':'Edge vs Market',
-    'btn1':'View Live Predictions','btn2':'Scan Markets',
-    'sec.pred.label':'Live Predictions','sec.pred.title':'AI Probability Engine',
-    'sec.pred.sub':'Real-time predictions updated every 15 minutes.',
-    'sec.perf.label':'Performance Dashboard','sec.perf.title':'Track Record',
-    'sec.perf.sub':'On-chain verified results. Every prediction logged immutably.',
-    'sec.scan.label':'Polymarket Scanner','sec.scan.title':'Market Intelligence',
-    'sec.feed.label':'X Agent Feed','sec.feed.title':'Latest Intelligence',
-    'sec.feed.sub':'Real-time signals from our AI agent monitoring prediction markets.',
+    'stat.acc':'Accuracy Rate','stat.pred':'Predictions Made','stat.vol':'Volume Tracked','stat.edge':'Edge vs Market',
+    'btn.pred':'View Live Predictions','btn.scan':'Scan Markets',
+    's.pred.label':'Live Predictions','s.pred.title':'AI Probability Engine',
+    's.pred.sub':'Real-time predictions updated every 15 minutes. Multi-model ensemble analysis.',
+    's.perf.label':'Performance Dashboard','s.perf.title':'Track Record',
+    's.perf.sub':'On-chain verified results. Every prediction logged immutably.',
+    's.scan.label':'Polymarket Scanner','s.scan.title':'Market Intelligence',
+    's.scan.sub':'Live scan of ending markets.',
+    's.feed.label':'X Agent Feed','s.feed.title':'Latest Intelligence',
+    's.feed.sub':'Real-time signals from our AI agent monitoring prediction markets.',
+    'm.acc':'30D Accuracy','m.acc.sub':'↑ +3.2% vs last month',
+    'm.edge':'Avg Edge','m.edge.sub':'↑ vs market consensus',
+    'm.total':'Predictions','m.total.sub':'↑ 47 this week',
+    'cnt.24h':'Within 24h','cnt.48h':'Within 48h','cnt.7d':'Within 7d',
+    'th.market':'Market','th.odds':'Odds','th.vol':'Volume','th.end':'End',
+    'card.updated':'Updated 15m ago','card.left':'left','card.prob':'Top Outcome',
+    'footer.product':'Product','footer.data':'Data Sources','footer.verify':'Verification',
+    'footer.chain':'On-Chain Data','footer.logs':'On-Chain Logs','footer.method':'Methodology',
     'footer.desc':'AI-Driven Prediction Engine delivering on-chain verified alpha.',
-    'footer.disclaimer':'⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice.',
-    'th.market':'Market','th.odds':'Odds','th.edge':'Edge','th.vol':'Volume','th.end':'End',
-  },
-  zh: {
-    'nav.predictions':'实时预测','nav.performance':'历史表现',
-    'nav.markets':'市场扫描','nav.feed':'推文','nav.cta':'获取 Alpha →',
+    'footer.disclaimer':'⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice. Prediction markets involve risk.',
+  }},
+  zh: { label:'中文', flag:'🇨🇳', strings:{
+    'nav.pred':'实时预测','nav.perf':'历史表现','nav.scan':'市场扫描',
+    'nav.feed':'推文动态','nav.cta':'获取 Alpha →',
     'hero.badge':'实时 · AI 引擎运行中 · 847 个市场追踪中',
-    'hero.h1':'用 <span class="grad">机器精度</span><br>预测市场',
-    'hero.sub':'AI 驱动预测引擎 · 链上验证 Alpha · 只输出概率<br>无噪音，无观点，纯概率。',
-    'stat1':'准确率','stat2':'已完成预测','stat3':'追踪成交量','stat4':'相对市场优势',
-    'btn1':'查看实时预测','btn2':'扫描市场',
-    'sec.pred.label':'实时预测','sec.pred.title':'AI 概率引擎',
-    'sec.pred.sub':'每15分钟更新一次实时预测，多模型集成分析。',
-    'sec.perf.label':'历史表现','sec.perf.title':'真实记录',
-    'sec.perf.sub':'链上验证结果，每条预测均不可篡改存档。',
-    'sec.scan.label':'Polymarket 扫描仪','sec.scan.title':'市场情报',
-    'sec.feed.label':'X 智能体动态','sec.feed.title':'最新情报',
-    'sec.feed.sub':'AI 智能体实时监控预测市场发出的信号。',
+    'hero.h1':'用 <span class="grad">机器精度</span><br>预测市场走势',
+    'hero.sub':'AI 驱动预测引擎 · 链上验证 Alpha · 只输出概率<br>无噪音，无主观判断，纯粹概率。',
+    'stat.acc':'准确率','stat.pred':'已完成预测','stat.vol':'追踪成交量','stat.edge':'相对市场优势',
+    'btn.pred':'查看实时预测','btn.scan':'扫描市场',
+    's.pred.label':'实时预测','s.pred.title':'AI 概率引擎',
+    's.pred.sub':'每15分钟更新一次实时预测，多模型集成分析。',
+    's.perf.label':'历史表现','s.perf.title':'真实记录',
+    's.perf.sub':'链上验证结果，每条预测均不可篡改存档。',
+    's.scan.label':'Polymarket 扫描仪','s.scan.title':'市场情报',
+    's.scan.sub':'即将结束市场实时扫描。',
+    's.feed.label':'X 智能体动态','s.feed.title':'最新情报',
+    's.feed.sub':'AI 智能体实时监控预测市场发出的信号。',
+    'm.acc':'30天准确率','m.acc.sub':'↑ 较上月 +3.2%',
+    'm.edge':'平均优势','m.edge.sub':'↑ 相对市场共识',
+    'm.total':'预测总数','m.total.sub':'↑ 本周新增47条',
+    'cnt.24h':'24小时内','cnt.48h':'48小时内','cnt.7d':'7天内',
+    'th.market':'市场','th.odds':'赔率','th.vol':'成交量','th.end':'截止时间',
+    'card.updated':'15分钟前更新','card.left':'剩余','card.prob':'最高结果',
+    'footer.product':'产品','footer.data':'数据来源','footer.verify':'链上验证',
+    'footer.chain':'链上数据','footer.logs':'链上记录','footer.method':'方法论',
     'footer.desc':'AI 驱动预测引擎，提供链上验证的 Alpha 信号。',
-    'footer.disclaimer':'⚠️ 免责声明：SOCR Oracle 提供 AI 生成的概率估计，仅供参考，不构成任何投资建议。',
-    'th.market':'市场','th.odds':'赔率','th.edge':'优势','th.vol':'成交量','th.end':'截止',
-  },
-  ja: {
-    'nav.predictions':'リアルタイム予測','nav.performance':'実績',
-    'nav.markets':'マーケット','nav.feed':'Xフィード','nav.cta':'Alpha を取得 →',
-    'hero.badge':'ライブ · AI エンジン稼働中 · 847 マーケット追跡中',
+    'footer.disclaimer':'⚠️ 免责声明：SOCR Oracle 提供 AI 生成的概率估计，仅供参考，不构成任何投资建议。预测市场存在风险。',
+  }},
+  ja: { label:'日本語', flag:'🇯🇵', strings:{
+    'nav.pred':'リアルタイム予測','nav.perf':'実績','nav.scan':'マーケット',
+    'nav.feed':'Xフィード','nav.cta':'Alphaを取得 →',
+    'hero.badge':'ライブ · AI エンジン稼働中 · 847マーケット追跡中',
     'hero.h1':'<span class="grad">機械精度</span>で<br>マーケットを予測する',
-    'hero.sub':'AI 駆動予測エンジン · オンチェーン検証済み Alpha · 確率のみ提供<br>ノイズなし。意見なし。純粋な確率。',
-    'stat1':'正確率','stat2':'予測完了数','stat3':'追跡取引量','stat4':'市場との優位差',
-    'btn1':'リアルタイム予測を見る','btn2':'マーケットをスキャン',
-    'sec.pred.label':'リアルタイム予測','sec.pred.title':'AI 確率エンジン',
-    'sec.pred.sub':'マルチモデルアンサンブルによる15分ごと更新の予測。',
-    'sec.perf.label':'実績ダッシュボード','sec.perf.title':'実績記録',
-    'sec.perf.sub':'オンチェーン検証済み結果。すべての予測が不変ログに記録。',
-    'sec.scan.label':'Polymarket スキャナー','sec.scan.title':'マーケットインテリジェンス',
-    'sec.feed.label':'X エージェントフィード','sec.feed.title':'最新インテリジェンス',
-    'sec.feed.sub':'AI エージェントが予測マーケットをリアルタイム監視するシグナル。',
-    'footer.desc':'AI 駆動予測エンジンによるオンチェーン検証済み Alpha 提供。',
-    'footer.disclaimer':'⚠️ 免責事項：SOCR Oracle の予測は情報提供目的のみです。投資アドバイスではありません。',
-    'th.market':'マーケット','th.odds':'オッズ','th.edge':'エッジ','th.vol':'出来高','th.end':'終了',
-  },
-  ko: {
-    'nav.predictions':'실시간 예측','nav.performance':'성과',
-    'nav.markets':'마켓','nav.feed':'X 피드','nav.cta':'Alpha 받기 →',
+    'hero.sub':'AI駆動予測エンジン · オンチェーン検証済みAlpha · 確率のみ提供<br>ノイズなし。意見なし。純粋な確率。',
+    'stat.acc':'正確率','stat.pred':'予測完了数','stat.vol':'追跡取引量','stat.edge':'市場との優位差',
+    'btn.pred':'リアルタイム予測を見る','btn.scan':'マーケットをスキャン',
+    's.pred.label':'リアルタイム予測','s.pred.title':'AI確率エンジン',
+    's.pred.sub':'マルチモデルアンサンブルによる15分ごと更新の予測。',
+    's.perf.label':'実績ダッシュボード','s.perf.title':'実績記録',
+    's.perf.sub':'オンチェーン検証済み結果。すべての予測が不変ログに記録。',
+    's.scan.label':'Polymarketスキャナー','s.scan.title':'マーケットインテリジェンス',
+    's.scan.sub':'終了間近のマーケットをリアルタイムスキャン。',
+    's.feed.label':'Xエージェントフィード','s.feed.title':'最新インテリジェンス',
+    's.feed.sub':'AIエージェントが予測マーケットをリアルタイム監視するシグナル。',
+    'm.acc':'30日精度','m.acc.sub':'↑ 先月比 +3.2%',
+    'm.edge':'平均エッジ','m.edge.sub':'↑ 市場コンセンサス比',
+    'm.total':'予測数','m.total.sub':'↑ 今週47件',
+    'cnt.24h':'24時間以内','cnt.48h':'48時間以内','cnt.7d':'7日以内',
+    'th.market':'マーケット','th.odds':'オッズ','th.vol':'出来高','th.end':'終了',
+    'card.updated':'15分前更新','card.left':'残り','card.prob':'上位結果',
+    'footer.product':'プロダクト','footer.data':'データソース','footer.verify':'検証',
+    'footer.chain':'オンチェーンデータ','footer.logs':'オンチェーンログ','footer.method':'方法論',
+    'footer.desc':'AI駆動予測エンジンによるオンチェーン検証済みAlpha提供。',
+    'footer.disclaimer':'⚠️ 免責事項：SOCR Oracleの予測は情報提供目的のみです。投資アドバイスではありません。',
+  }},
+  ko: { label:'한국어', flag:'🇰🇷', strings:{
+    'nav.pred':'실시간 예측','nav.perf':'성과','nav.scan':'마켓',
+    'nav.feed':'X 피드','nav.cta':'Alpha 받기 →',
     'hero.badge':'라이브 · AI 엔진 가동 중 · 847개 마켓 추적 중',
     'hero.h1':'<span class="grad">머신 정밀도</span>로<br>마켓을 예측하다',
     'hero.sub':'AI 기반 예측 엔진 · 온체인 검증 Alpha · 확률만 제공<br>노이즈 없음. 의견 없음. 순수 확률.',
-    'stat1':'정확도','stat2':'예측 완료','stat3':'추적 거래량','stat4':'마켓 대비 우위',
-    'btn1':'실시간 예측 보기','btn2':'마켓 스캔',
-    'sec.pred.label':'실시간 예측','sec.pred.title':'AI 확률 엔진',
-    'sec.pred.sub':'멀티 모델 앙상블로 15분마다 업데이트되는 예측.',
-    'sec.perf.label':'성과 대시보드','sec.perf.title':'실적 기록',
-    'sec.perf.sub':'온체인 검증 결과. 모든 예측이 불변 로그에 기록됩니다.',
-    'sec.scan.label':'Polymarket 스캐너','sec.scan.title':'마켓 인텔리전스',
-    'sec.feed.label':'X 에이전트 피드','sec.feed.title':'최신 인텔리전스',
-    'sec.feed.sub':'AI 에이전트가 예측 마켓을 실시간 모니터링하는 신호.',
+    'stat.acc':'정확도','stat.pred':'예측 완료','stat.vol':'추적 거래량','stat.edge':'마켓 대비 우위',
+    'btn.pred':'실시간 예측 보기','btn.scan':'마켓 스캔',
+    's.pred.label':'실시간 예측','s.pred.title':'AI 확률 엔진',
+    's.pred.sub':'멀티 모델 앙상블로 15분마다 업데이트되는 예측.',
+    's.perf.label':'성과 대시보드','s.perf.title':'실적 기록',
+    's.perf.sub':'온체인 검증 결과. 모든 예측이 불변 로그에 기록됩니다.',
+    's.scan.label':'Polymarket 스캐너','s.scan.title':'마켓 인텔리전스',
+    's.scan.sub':'종료 임박 마켓 실시간 스캔.',
+    's.feed.label':'X 에이전트 피드','s.feed.title':'최신 인텔리전스',
+    's.feed.sub':'AI 에이전트가 예측 마켓을 실시간 모니터링하는 신호.',
+    'm.acc':'30일 정확도','m.acc.sub':'↑ 전월 대비 +3.2%',
+    'm.edge':'평균 엣지','m.edge.sub':'↑ 시장 컨센서스 대비',
+    'm.total':'예측 수','m.total.sub':'↑ 이번 주 47건',
+    'cnt.24h':'24시간 이내','cnt.48h':'48시간 이내','cnt.7d':'7일 이내',
+    'th.market':'마켓','th.odds':'배당률','th.vol':'거래량','th.end':'종료',
+    'card.updated':'15분 전 업데이트','card.left':'남음','card.prob':'최고 결과',
+    'footer.product':'제품','footer.data':'데이터 소스','footer.verify':'검증',
+    'footer.chain':'온체인 데이터','footer.logs':'온체인 로그','footer.method':'방법론',
     'footer.desc':'AI 기반 예측 엔진으로 온체인 검증 Alpha 제공.',
     'footer.disclaimer':'⚠️ 면책조항: SOCR Oracle의 예측은 정보 제공 목적으로만 제공됩니다. 투자 조언이 아닙니다.',
-    'th.market':'마켓','th.odds':'배당률','th.edge':'엣지','th.vol':'거래량','th.end':'종료',
-  }
+  }}
 };
 
-let currentLang = 'en';
-const ID_MAP = {
-  't-badge':'hero.badge','t-h1':'hero.h1','t-sub':'hero.sub',
-  't-stat1':'stat1','t-stat2':'stat2','t-stat3':'stat3','t-stat4':'stat4',
-  't-btn1':'btn1','t-btn2':'btn2',
-};
+let lang = localStorage.getItem('socr_lang') || 'en';
+let marketsData = null;
 
-function setLang(lang) {
-  currentLang = lang;
-  const t = I18N[lang];
+function t(key) { return (LANGS[lang].strings[key]) || key; }
 
-  // id-mapped elements
-  Object.entries(ID_MAP).forEach(([id, key]) => {
-    const el = document.getElementById(id);
-    if (el && t[key]) el.innerHTML = t[key];
-  });
-
-  // nav links via data-i18n
+function applyTranslations() {
+  // data-i18n 属性
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    if (t[key]) el.innerHTML = t[key];
+    const val = t(key);
+    if (val !== key) el.innerHTML = val;
   });
-
-  // section labels/titles/subs (inject by section order)
-  const sects = [
-    ['sec.pred.label','sec.pred.title','sec.pred.sub'],
-    ['sec.perf.label','sec.perf.title','sec.perf.sub'],
-    ['sec.scan.label','sec.scan.title',null],
-    ['sec.feed.label','sec.feed.title','sec.feed.sub'],
-  ];
-  document.querySelectorAll('.section-label').forEach((el,i) => {
-    if (sects[i] && t[sects[i][0]]) el.textContent = t[sects[i][0]];
-  });
-  document.querySelectorAll('.section-title').forEach((el,i) => {
-    if (sects[i] && t[sects[i][1]]) el.textContent = t[sects[i][1]];
-  });
-  document.querySelectorAll('.section-sub').forEach((el,i) => {
-    if (sects[i] && sects[i][2] && t[sects[i][2]]) el.innerHTML = t[sects[i][2]];
-  });
-
-  // table headers
-  const ths = document.querySelectorAll('thead th');
-  const thKeys = ['th.market','th.odds',null,'th.edge','th.vol','th.end',null];
-  ths.forEach((th,i) => { if (thKeys[i] && t[thKeys[i]]) th.textContent = t[thKeys[i]]; });
-
-  // lang buttons
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang ||
-      (lang==='zh' && btn.textContent==='中') ||
-      (lang==='ja' && btn.textContent==='日') ||
-      (lang==='ko' && btn.textContent==='한'));
-  });
-
-  // save preference
-  localStorage.setItem('socr_lang', lang);
-}
-async function loadMarkets() {
-  try {
-    const r = await fetch(`./markets.json?t=${Date.now()}`);
-    const d = await r.json();
-    document.getElementById('scanUpdated').textContent = '更新于 ' + d.updatedAt;
-    document.getElementById('cnt24h').textContent = d.summary['24h'];
-    document.getElementById('cnt48h').textContent = d.summary['48h'];
-    document.getElementById('cnt7d').textContent  = d.summary['7d'];
-    renderLiveMarkets(d.markets);
-    renderScannerFromData(d.markets);
-  } catch(e) {
-    console.error('markets.json load failed', e);
+  // html lang attribute
+  document.documentElement.lang = lang;
+  // title
+  document.title = `SOCR Oracle — ${t('hero.h1').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()}`;
+  // Re-render dynamic content with new language
+  if (marketsData) {
+    renderLiveMarkets(marketsData.markets);
+    renderScannerFromData(marketsData.markets);
   }
+  renderFeed();
+}
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('socr_lang', l);
+  // Update trigger label
+  document.getElementById('langLabel').textContent = LANGS[l].label;
+  // Update dropdown options
+  document.querySelectorAll('.lang-opt').forEach(el => {
+    const active = el.dataset.lang === l;
+    el.classList.toggle('active', active);
+    const check = el.querySelector('.check');
+    if (active && !check) {
+      el.insertAdjacentHTML('beforeend','<span class="check">✓</span>');
+    } else if (!active && check) {
+      check.remove();
+    }
+  });
+  closeLangMenu();
+  applyTranslations();
+}
+
+function toggleLangMenu() {
+  const trigger = document.getElementById('langTrigger');
+  const dropdown = document.getElementById('langDropdown');
+  trigger.classList.toggle('open');
+  dropdown.classList.toggle('open');
+}
+
+function closeLangMenu() {
+  document.getElementById('langTrigger').classList.remove('open');
+  document.getElementById('langDropdown').classList.remove('open');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.lang-wrap')) closeLangMenu();
+});
+
+// ═══════════════════════════════════════
+// DATA & RENDER
+// ═══════════════════════════════════════
+const TWEETS = [
+  { avatar:'S', name:'SOCR Oracle', handle:'@SOCR_Oracle',
+    text_en:`🔮 NEW SIGNAL: BTC/USD Q2 probability updated to <strong style="color:var(--green)">72%</strong> (↑4%).<br><br>On-chain accumulation + macro tailwinds aligning. <a href="#">Full analysis →</a>`,
+    text_zh:`🔮 新信号：BTC/USD Q2概率更新至 <strong style="color:var(--green)">72%</strong>（↑4%）。<br><br>链上积累 + 宏观顺风持续对齐。<a href="#">完整分析 →</a>`,
+    text_ja:`🔮 新シグナル：BTC/USD Q2確率が<strong style="color:var(--green)">72%</strong>（↑4%）に更新。<br><br>オンチェーン蓄積＋マクロ追い風継続。<a href="#">詳細分析 →</a>`,
+    text_ko:`🔮 새 신호: BTC/USD Q2 확률이 <strong style="color:var(--green)">72%</strong>（↑4%）로 업데이트.<br><br>온체인 축적 + 매크로 순풍 지속. <a href="#">전체 분석 →</a>`,
+    likes:'847', rt:'312', time_en:'2 hours ago', time_zh:'2小时前', time_ja:'2時間前', time_ko:'2시간 전' },
+  { avatar:'S', name:'SOCR Oracle', handle:'@SOCR_Oracle',
+    text_en:`⚡ EDGE ALERT: Solana ETF approval at <strong style="color:var(--cyan)">81%</strong> vs market 74%.<br><br>+7% edge opportunity detected. <a href="#">View on Polymarket →</a>`,
+    text_zh:`⚡ 优势警报：Solana ETF 批准概率 <strong style="color:var(--cyan)">81%</strong>，市场仅74%。<br><br>检测到+7%优势机会。<a href="#">在Polymarket查看 →</a>`,
+    text_ja:`⚡ エッジアラート：Solana ETF承認<strong style="color:var(--cyan)">81%</strong>、市場74%。<br><br>+7%エッジの機会を検出。<a href="#">Polymarketで見る →</a>`,
+    text_ko:`⚡ 엣지 알림: Solana ETF 승인 <strong style="color:var(--cyan)">81%</strong> vs 시장 74%.<br><br>+7% 엣지 기회 감지. <a href="#">Polymarket에서 보기 →</a>`,
+    likes:'1.2K', rt:'589', time_en:'5 hours ago', time_zh:'5小时前', time_ja:'5時間前', time_ko:'5시간 전' },
+  { avatar:'S', name:'SOCR Oracle', handle:'@SOCR_Oracle',
+    text_en:`📊 WEEKLY RECAP: 78.4% accuracy across 47 predictions.<br><br>Top: Trump crypto bill (+19% edge). Miss: ETH gas (−8%). <a href="#">On-chain log →</a>`,
+    text_zh:`📊 周报：47条预测准确率78.4%。<br><br>最佳：Trump加密法案（+19%优势）。失误：ETH Gas（-8%）。<a href="#">链上记录 →</a>`,
+    text_ja:`📊 週次レポート：47件の予測で78.4%の正確率。<br><br>最高：Trumpクリプト法案（+19%エッジ）。<a href="#">オンチェーンログ →</a>`,
+    text_ko:`📊 주간 요약: 47개 예측, 78.4% 정확도.<br><br>최고: 트럼프 크립토 법안（+19% 엣지）. <a href="#">온체인 로그 →</a>`,
+    likes:'2.1K', rt:'934', time_en:'1 day ago', time_zh:'1天前', time_ja:'1日前', time_ko:'1일 전' },
+];
+
+function renderFeed() {
+  document.getElementById('feedGrid').innerHTML = TWEETS.map(tw => `
+    <div class="glass tweet-card">
+      <div class="tweet-header">
+        <div class="tweet-avatar">${tw.avatar}</div>
+        <div><div class="tweet-name">${tw.name}</div><div class="tweet-handle">${tw.handle}</div></div>
+        <span class="live-dot" style="margin-left:auto;font-size:10px">LIVE</span>
+      </div>
+      <div class="tweet-text">${tw['text_'+lang] || tw.text_en}</div>
+      <div class="tweet-stats">
+        <span class="tstat">❤️ <b>${tw.likes}</b></span>
+        <span class="tstat">🔁 <b>${tw.rt}</b></span>
+      </div>
+      <div class="tweet-time">${tw['time_'+lang] || tw.time_en}</div>
+    </div>`).join('');
 }
 
 function renderLiveMarkets(markets) {
   const grid = document.getElementById('predGrid');
-  if (!markets || !markets.length) return;
+  if (!markets?.length) { grid.innerHTML = `<div style="color:var(--muted);padding:60px;text-align:center">📭 No markets</div>`; return; }
   grid.innerHTML = markets.map(m => {
-    const odds   = m.odds || {};
-    const keys   = Object.keys(odds);
-    const topKey = keys.sort((a,b) => odds[b]-odds[a])[0];
-    const topVal = topKey ? odds[topKey] : 50;
-    const dir    = topVal >= 70 ? 'bull' : topVal <= 30 ? 'bear' : 'neut';
-    const conf   = topVal >= 75 ? 'HIGH' : topVal >= 55 ? 'MED' : 'LOW';
-    const h      = m.hoursLeft;
+    const odds = m.odds || {};
+    const keys = Object.keys(odds).sort((a,b) => odds[b]-odds[a]);
+    const topKey = keys[0], topVal = topKey ? odds[topKey] : 50;
+    const dir = topVal >= 70 ? 'bull' : topVal <= 30 ? 'bear' : 'neut';
+    const conf = topVal >= 75 ? 'high' : topVal >= 55 ? 'med' : 'low';
+    const confLabel = topVal >= 75 ? 'HIGH' : topVal >= 55 ? 'MED' : 'LOW';
+    const h = m.hoursLeft;
     const timeStr = h < 24 ? `${h.toFixed(1)}h` : `${(h/24).toFixed(1)}d`;
-    const oddsStr = keys.slice(0,2).map(k=>`${k} ${odds[k]}%`).join(' / ') || 'N/A';
+    const oddsStr = keys.slice(0,2).map(k=>`${k} ${odds[k]}%`).join(' · ') || 'N/A';
     return `
     <div class="glass pred-card">
       <div class="pred-header">
         <div class="pred-title">${m.question}</div>
-        <span class="pred-badge ${conf.toLowerCase()}">${conf}</span>
+        <span class="pred-badge ${conf}">${confLabel}</span>
       </div>
       <div class="pred-prob ${dir}">${topVal}<span style="font-size:.45em;opacity:.7">%</span></div>
-      <div class="pred-meta">${oddsStr}</div>
-      <div class="progress-wrap">
-        <div class="progress-label"><span>Top Outcome</span><span>${topVal}%</span></div>
-        <div class="progress-bar">
-          <div class="progress-fill ${dir==='bear'?'bear':''}" style="width:0%" data-w="${topVal}%"></div>
-        </div>
+      <div class="pred-meta">${oddsStr} · ${t('card.updated')}</div>
+      <div class="progress-bar">
+        <div class="progress-fill ${dir==='bear'?'bear':''}" style="width:0%" data-w="${topVal}%"></div>
       </div>
       <div class="pred-footer">
-        <span class="pred-time">⏱ ${timeStr} left</span>
+        <span class="pred-time">⏱ ${timeStr} ${t('card.left')}</span>
         <a href="${m.link}" target="_blank" class="pred-link">Polymarket ↗</a>
       </div>
-      <div style="font-size:11px;color:#4A6080;margin-top:12px;line-height:1.6;border-top:1px solid rgba(0,245,255,0.08);padding-top:10px;">
-        💡 ${m.prediction}
-      </div>
+      ${m.prediction ? `<div class="pred-prediction">💡 ${m.prediction}</div>` : ''}
     </div>`;
   }).join('');
-  setTimeout(() => {
-    document.querySelectorAll('.progress-fill').forEach(el => el.style.width = el.dataset.w);
-  }, 100);
+  setTimeout(() => document.querySelectorAll('.progress-fill').forEach(el => el.style.width = el.dataset.w), 100);
 }
 
 function renderScannerFromData(markets) {
   const tbody = document.getElementById('scannerBody');
   tbody.innerHTML = markets.map(m => {
-    const odds  = m.odds || {};
-    const keys  = Object.keys(odds);
-    const h     = m.hoursLeft;
+    const odds = m.odds || {};
+    const keys = Object.keys(odds);
+    const h = m.hoursLeft;
     const timeStr = h < 24 ? `${h.toFixed(1)}h` : `${(h/24).toFixed(1)}d`;
-    const oddsStr = keys.slice(0,2).map(k=>`${k} <b>${odds[k]}%</b>`).join(' / ') || 'N/A';
-    const vol   = m.volume >= 1e6 ? `$${(m.volume/1e6).toFixed(1)}M` : `$${(m.volume/1e3).toFixed(0)}K`;
+    const oddsStr = keys.slice(0,2).map(k=>`<b style="color:var(--cyan)">${k}</b> ${odds[k]}%`).join(' / ') || 'N/A';
+    const vol = m.volume >= 1e6 ? `$${(m.volume/1e6).toFixed(1)}M` : `$${Math.round(m.volume/1000)}K`;
+    const urgent = h < 24;
     return `<tr>
       <td class="td-market">${m.question}</td>
-      <td colspan="2" style="color:var(--cyan);font-size:12px;">${oddsStr}</td>
-      <td style="color:var(--muted);font-size:11px;">—</td>
-      <td class="td-vol">${vol}</td>
-      <td class="td-end" style="color:${h<24?'#FF6B6B':'var(--muted)'}">⏱ ${timeStr}</td>
+      <td style="font-size:12px;">${oddsStr}</td>
+      <td style="color:var(--muted)">${vol}</td>
+      <td style="color:${urgent?'#FF6B6B':'var(--muted)'};font-weight:${urgent?700:400}">⏱ ${timeStr}</td>
       <td><a href="${m.link}" target="_blank" style="color:var(--cyan);font-size:11px;text-decoration:none;font-weight:600;">View ↗</a></td>
     </tr>`;
   }).join('');
 }
 
-// ── Render Feed ──
-function renderFeed() {
-  document.getElementById('feedGrid').innerHTML = TWEETS.map(t => `
-    <div class="glass tweet-card">
-      <div class="tweet-header">
-        <div class="tweet-avatar">${t.avatar}</div>
-        <div>
-          <div class="tweet-name">${t.name}</div>
-          <div class="tweet-handle">${t.handle}</div>
-        </div>
-        <span class="live-dot" style="margin-left:auto;font-size:10px">LIVE</span>
-      </div>
-      <div class="tweet-text">${t.text.replace(/\n/g,'<br>')}</div>
-      <div class="tweet-stats">
-        <span class="tstat">❤️ <span>${t.likes}</span></span>
-        <span class="tstat">🔁 <span>${t.rt}</span></span>
-      </div>
-      <div class="tweet-time">${t.time}</div>
-    </div>`).join('');
+async function loadMarkets() {
+  try {
+    const r = await fetch(`./markets.json?t=${Date.now()}`);
+    marketsData = await r.json();
+    const d = marketsData;
+    document.getElementById('scanUpdated').textContent = d.updatedAt;
+    document.getElementById('cnt24h').textContent = d.summary['24h'];
+    document.getElementById('cnt48h').textContent = d.summary['48h'];
+    document.getElementById('cnt7d').textContent = d.summary['7d'];
+    renderLiveMarkets(d.markets);
+    renderScannerFromData(d.markets);
+  } catch(e) { console.error(e); }
 }
 
-// ── Counter animation ──
 function animateCounter(el, target, suffix='') {
-  let start = 0, duration = 2000, step = 16;
-  const inc = target / (duration / step);
+  let v = 0; const step = target / 80;
   const timer = setInterval(() => {
-    start = Math.min(start + inc, target);
-    el.textContent = (Number.isInteger(target) ? Math.floor(start) : start.toFixed(1)) + suffix;
-    if (start >= target) clearInterval(timer);
-  }, step);
+    v = Math.min(v + step, target);
+    el.textContent = (Number.isInteger(target) ? Math.floor(v) : v.toFixed(1)) + suffix;
+    if (v >= target) clearInterval(timer);
+  }, 16);
 }
 
-// ── Init ──
 window.addEventListener('DOMContentLoaded', () => {
-  renderFeed();
+  // Apply saved language
+  setLang(lang);
+  applyTranslations();
   loadMarkets();
-
-  // Restore language preference
-  const saved = localStorage.getItem('socr_lang');
-  if (saved && saved !== 'en') setLang(saved);
-
-  // Animate hero numbers
+  renderFeed();
   setTimeout(() => {
-    animateCounter(document.getElementById('accuracy'), 78.4, '%');
-    animateCounter(document.getElementById('vol'), 4.2, '');
+    animateCounter(document.getElementById('accuracy'), 78.4);
+    animateCounter(document.getElementById('vol'), 4.2);
   }, 400);
-
-  // Reload every hour
   setInterval(loadMarkets, 3600000);
 });
 </script>
 </body>
 </html>
-<nav>
-  <a href="#" class="nav-logo">
-    <div class="logo-icon">S</div>
-    <span class="logo-text">SOCR <span>Oracle</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#predictions" data-i18n="nav.predictions">Live Predictions</a></li>
-    <li><a href="#performance" data-i18n="nav.performance">Performance</a></li>
-    <li><a href="#scanner" data-i18n="nav.markets">Markets</a></li>
-    <li><a href="#feed" data-i18n="nav.feed">X Feed</a></li>
-    <li><a href="#api">API</a></li>
-  </ul>
-  <a href="#predictions" class="nav-cta" data-i18n="nav.cta">Get Alpha →</a>
-  <div class="lang-switcher">
-    <button class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('zh')">中</button>
-    <button class="lang-btn" onclick="setLang('ja')">日</button>
-    <button class="lang-btn" onclick="setLang('ko')">한</button>
-  </div>
-  <div class="hamburger"><span></span><span></span><span></span></div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      <span id="t-badge">LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED</span>
-    </div>
-    <h1 id="t-h1">Predict Markets<br>with <span class="grad">Machine Precision</span></h1>
-    <p class="hero-sub" id="t-sub">AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>
-    No noise. No opinions. Pure probability.</p>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-num" id="accuracy">78.4<span class="unit">%</span></div>
-        <div class="hstat-label" id="t-stat1">Accuracy Rate</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-num">2,341<span class="unit" style="color:var(--green)"></span></div>
-        <div class="hstat-label" id="t-stat2">Predictions Made</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-num">$<span id="vol">4.2</span><span class="unit">M</span></div>
-        <div class="hstat-label" id="t-stat3">Volume Tracked</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-num" style="color:var(--green)">+19.3<span class="unit">%</span></div>
-        <div class="hstat-label" id="t-stat4">Edge vs Market</div>
-      </div>
-    </div>
-    <div class="hero-btns">
-      <a href="#predictions" class="btn-primary" id="t-btn1">View Live Predictions</a>
-      <a href="#scanner" class="btn-secondary" id="t-btn2">Scan Markets</a>
-    </div>
-  </div>
-</section>
