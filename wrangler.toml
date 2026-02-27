@@ -1,0 +1,6 @@
+name = "news-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# 不要在这里放 token！用 wrangler secret put OPENNEWS_TOKEN

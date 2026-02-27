@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📰 Crypto News Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f13; color: #e0e0e0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+  header {
+    background: #16161e; border-bottom: 1px solid #2a2a3a;
+    padding: 14px 24px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: .3px; }
+  header h1 span { color: #7c6af7; }
+
+  .controls { display: flex; gap: 8px; align-items: center; }
+  .controls select {
+    background: #1e1e2e; border: 1px solid #2a2a3a; color: #ccc;
+    padding: 5px 10px; border-radius: 6px; font-size: 13px; cursor: pointer;
+  }
+  .btn-refresh {
+    background: #7c6af7; border: none; color: #fff;
+    padding: 6px 14px; border-radius: 6px; font-size: 13px;
+    font-weight: 600; cursor: pointer; transition: background .15s;
+  }
+  .btn-refresh:hover { background: #6a58e0; }
+  .btn-refresh:disabled { background: #3a3a5a; cursor: default; }
+
+  .status-bar {
+    background: #12121a; padding: 7px 24px;
+    font-size: 12px; color: #555;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  #countdown { color: #7c6af7; font-weight: 600; }
+
+  .filter-bar {
+    padding: 10px 24px; display: flex; gap: 8px;
+    background: #12121a; border-bottom: 1px solid #1a1a2a;
+  }
+  .fbtn {
+    padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 1px solid #2a2a3a; background: #1e1e2e; color: #777;
+    cursor: pointer; transition: all .15s;
+  }
+  .fbtn.active         { background: #7c6af7; border-color: #7c6af7; color: #fff; }
+  .fbtn.long.active    { background: #163d1e; border-color: #22c55e; color: #22c55e; }
+  .fbtn.short.active   { background: #3d1212; border-color: #ef4444; color: #ef4444; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px; padding: 18px 24px;
+  }
+
+  .card {
+    background: #16161e; border: 1px solid #222232;
+    border-radius: 10px; padding: 14px;
+    transition: transform .12s, border-color .12s;
+    cursor: pointer; text-decoration: none; display: block;
+  }
+  .card:hover { transform: translateY(-2px); border-color: #3a3a5a; }
+  .card.long  { border-left: 3px solid #22c55e; }
+  .card.short { border-left: 3px solid #ef4444; }
+  .card.neutral { border-left: 3px solid #333; }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .source { font-size: 11px; color: #666; background: #1a1a2e; padding: 2px 7px; border-radius: 4px; }
+
+  .badges { display: flex; gap: 5px; align-items: center; }
+  .sig {
+    font-size: 11px; font-weight: 700; padding: 2px 7px;
+    border-radius: 4px; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .sig.long    { background: #163d1e; color: #22c55e; }
+  .sig.short   { background: #3d1212; color: #ef4444; }
+  .sig.neutral { background: #1e1e2e; color: #555; }
+
+  .grade {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .grade.a  { background: #163d1e; color: #22c55e; border: 2px solid #22c55e; }
+  .grade.b  { background: #1f3010; color: #84cc16; border: 2px solid #84cc16; }
+  .grade.c  { background: #1a1a2e; color: #555;    border: 2px solid #2a2a3a; }
+
+  .title { font-size: 13px; line-height: 1.55; color: #ddd; margin-bottom: 8px; }
+  .summary {
+    font-size: 12px; color: #777; line-height: 1.5;
+    border-top: 1px solid #1e1e2e; padding-top: 7px;
+  }
+  .card-foot {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: #444; margin-top: 8px;
+  }
+
+  .center { display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 80px; color: #444; font-size: 14px; }
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid #1e1e2e;
+    border-top-color: #7c6af7; border-radius: 50%;
+    animation: spin .7s linear infinite; margin-bottom: 14px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-box {
+    background: #2a1010; border: 1px solid #5a1010;
+    border-radius: 8px; padding: 16px 20px;
+    margin: 20px 24px; font-size: 13px; color: #ef9090;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📰 Crypto News <span>Dashboard</span></h1>
+  <div class="controls">
+    <select id="minScore" onchange="renderNews()">
+      <option value="0">All scores</option>
+      <option value="60">≥ 60</option>
+      <option value="80" selected>≥ 80</option>
+      <option value="90">≥ 90</option>
+    </select>
+    <select id="limitSel" onchange="fetchNews()">
+      <option value="30">30条</option>
+      <option value="50" selected>50条</option>
+      <option value="100">100条</option>
+    </select>
+    <button class="btn-refresh" id="refreshBtn" onclick="fetchNews()">🔄 刷新</button>
+  </div>
+</header>
+
+<div class="status-bar">
+  <span id="statusText">就绪</span>
+  <span>下次刷新 <span id="countdown">5:00</span></span>
+</div>
+
+<div class="filter-bar">
+  <button class="fbtn active" onclick="setFilter('all',this)">全部</button>
+  <button class="fbtn long"   onclick="setFilter('long',this)">🟢 Long</button>
+  <button class="fbtn short"  onclick="setFilter('short',this)">🔴 Short</button>
+  <button class="fbtn"        onclick="setFilter('neutral',this)">⚪ Neutral</button>
+</div>
+
+<div id="grid" class="grid">
+  <div class="center"><div class="spinner"></div>加载中...</div>
+</div>
+
+<script>
+// ⬇ 部署 Cloudflare Worker 后把 URL 填在这里
+const WORKER = 'https://news-proxy.YOUR_SUBDOMAIN.workers.dev';
+
+let allNews = [], filter = 'all', timer, cd = 300;
+
+function setFilter(f, el) {
+  filter = f;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderNews();
+}
+
+function gradeClass(g) {
+  if (!g) return 'c';
+  if (g.startsWith('A')) return 'a';
+  if (g.startsWith('B')) return 'b';
+  return 'c';
+}
+
+function timeAgo(ts) {
+  const m = Math.floor((Date.now() - ts) / 60000);
+  if (m < 1) return '刚刚';
+  if (m < 60) return m + '分钟前';
+  const h = Math.floor(m / 60);
+  return h < 24 ? h + '小时前' : Math.floor(h/24) + '天前';
+}
+
+function renderNews() {
+  const minScore = +document.getElementById('minScore').value;
+  let items = filter === 'all' ? allNews : allNews.filter(n => (n.aiRating?.signal||'neutral') === filter);
+  items = items.filter(n => (n.aiRating?.score||0) >= minScore);
+  const grid = document.getElementById('grid');
+  if (!items.length) { grid.innerHTML = '<div class="center">📭 暂无符合条件的新闻</div>'; return; }
+  grid.innerHTML = items.map(n => {
+    const r = n.aiRating || {};
+    const sig = r.signal || 'neutral';
+    const score = r.score || 0;
+    const grade = r.grade || 'C';
+    const title = (n.text || '').slice(0, 130);
+    const summary = (r.enSummary || r.summary || '').slice(0, 160);
+    const src = n.newsType || '';
+    const ts = n.ts ? timeAgo(n.ts) : '';
+    const link = n.link || '#';
+    return `<a class="card ${sig}" href="${link}" target="_blank" rel="noopener">
+      <div class="card-top">
+        <span class="source">${src}</span>
+        <div class="badges">
+          <span class="sig ${sig}">${sig}</span>
+          <div class="grade ${gradeClass(grade)}">${grade}</div>
+        </div>
+      </div>
+      <div class="title">${title}${n.text?.length > 130 ? '…' : ''}</div>
+      ${summary ? `<div class="summary">${summary}${(r.enSummary||r.summary||'').length > 160 ? '…' : ''}</div>` : ''}
+      <div class="card-foot"><span>💯 ${score}分</span><span>${ts}</span></div>
+    </a>`;
+  }).join('');
+}
+
+function startTimer() {
+  cd = 300; clearInterval(timer);
+  timer = setInterval(() => {
+    cd--;
+    const m = Math.floor(cd/60), s = cd%60;
+    document.getElementById('countdown').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if (cd <= 0) fetchNews();
+  }, 1000);
+}
+
+async function fetchNews() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true;
+  document.getElementById('statusText').textContent = '加载中...';
+  const limit = +document.getElementById('limitSel').value;
+  try {
+    const resp = await fetch(`${WORKER}/api/news/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit })
+    });
+    const json = await resp.json();
+    if (json.error) throw new Error(json.error);
+    allNews = (json.data || []).sort((a,b) => (b.aiRating?.score||0)-(a.aiRating?.score||0));
+    renderNews();
+    document.getElementById('statusText').textContent =
+      `更新于 ${new Date().toLocaleTimeString('zh-CN')}，共 ${allNews.length} 条`;
+    startTimer();
+  } catch(e) {
+    document.getElementById('grid').innerHTML =
+      `<div class="error-box">⚠️ 加载失败: ${e.message}<br><small>请确认 Cloudflare Worker 已部署并配置好 token</small></div>`;
+    document.getElementById('statusText').textContent = '加载失败';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+fetchNews();
+</script>
+</body>
+</html>
