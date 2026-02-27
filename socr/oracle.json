@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-27 23:12",
+  "updatedAt": "2026-02-27 23:15",
   "markets": [
     {
       "id": "38900",
@@ -18,7 +18,7 @@
           "icon": "📊",
           "model": "gpt-5",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '404 Not Found' for url 'https://api.gptclubapi.xyz/openai/v1/responses'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
         },
         {
           "agent": "B",
@@ -26,15 +26,15 @@
           "icon": "📰",
           "model": "claude-sonnet-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": null
         },
         {
           "agent": "C",
           "name": "Agent C · On-Chain",
           "icon": "⛓️",
           "model": "gemini-2.5-pro",
-          "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "output": "好的，我们来分析一下这个Polymarket市场的情况。",
+          "error": null
         },
         {
           "agent": "D",
@@ -42,7 +42,7 @@
           "icon": "😈",
           "model": "claude-opus-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '403 Forbidden' for url 'https://api.gptclubapi.xyz/api/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
         }
       ],
       "consensus": {
@@ -70,7 +70,7 @@
           "icon": "📊",
           "model": "gpt-5",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '404 Not Found' for url 'https://api.gptclubapi.xyz/openai/v1/responses'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
         },
         {
           "agent": "B",
@@ -78,15 +78,15 @@
           "icon": "📰",
           "model": "claude-sonnet-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": null
         },
         {
           "agent": "C",
           "name": "Agent C · On-Chain",
           "icon": "⛓️",
           "model": "gemini-2.5-pro",
-          "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "output": "好的，我们来详细分析一下这个Polymarket市场预测问题。",
+          "error": null
         },
         {
           "agent": "D",
@@ -94,7 +94,7 @@
           "icon": "😈",
           "model": "claude-opus-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '403 Forbidden' for url 'https://api.gptclubapi.xyz/api/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
         }
       ],
       "consensus": {
@@ -122,7 +122,7 @@
           "icon": "📊",
           "model": "gpt-5",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '404 Not Found' for url 'https://api.gptclubapi.xyz/openai/v1/responses'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
         },
         {
           "agent": "B",
@@ -130,15 +130,15 @@
           "icon": "📰",
           "model": "claude-sonnet-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": null
         },
         {
           "agent": "C",
           "name": "Agent C · On-Chain",
           "icon": "⛓️",
           "model": "gemini-2.5-pro",
-          "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "output": "好的，我们来分析一下这个Polymarket市场。\n\n### 市场",
+          "error": null
         },
         {
           "agent": "D",
@@ -146,7 +146,7 @@
           "icon": "😈",
           "model": "claude-opus-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '403 Forbidden' for url 'https://api.gptclubapi.xyz/api/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
         }
       ],
       "consensus": {
@@ -174,7 +174,7 @@
           "icon": "📊",
           "model": "gpt-5",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '404 Not Found' for url 'https://api.gptclubapi.xyz/openai/v1/responses'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
         },
         {
           "agent": "B",
@@ -182,15 +182,15 @@
           "icon": "📰",
           "model": "claude-sonnet-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": null
         },
         {
           "agent": "C",
           "name": "Agent C · On-Chain",
           "icon": "⛓️",
           "model": "gemini-2.5-pro",
-          "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "output": "好的，我们来分析一下这个Polymarket市场问题。\n\n这是一个非常",
+          "error": null
         },
         {
           "agent": "D",
@@ -198,7 +198,7 @@
           "icon": "😈",
           "model": "claude-opus-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '403 Forbidden' for url 'https://api.gptclubapi.xyz/api/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
         }
       ],
       "consensus": {
@@ -226,7 +226,7 @@
           "icon": "📊",
           "model": "gpt-5",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '404 Not Found' for url 'https://api.gptclubapi.xyz/openai/v1/responses'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
         },
         {
           "agent": "B",
@@ -234,15 +234,15 @@
           "icon": "📰",
           "model": "claude-sonnet-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": null
         },
         {
           "agent": "C",
           "name": "Agent C · On-Chain",
           "icon": "⛓️",
           "model": "gemini-2.5-pro",
-          "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "output": "这是一个关于美国在2025日历年关税收入",
+          "error": null
         },
         {
           "agent": "D",
@@ -250,7 +250,7 @@
           "icon": "😈",
           "model": "claude-opus-4-6",
           "output": "",
-          "error": "post() got an unexpected keyword argument 'proxies'"
+          "error": "Client error '403 Forbidden' for url 'https://api.gptclubapi.xyz/api/v1/messages'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
         }
       ],
       "consensus": {
