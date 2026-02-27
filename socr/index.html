@@ -153,6 +153,16 @@ svg.chart{width:100%;height:100%;}
 .metric-change.up{color:var(--green);}
 .metric-change.down{color:#FF6B6B;}
 
+/* ── Lang Switcher ── */
+.lang-switcher{display:flex;gap:4px;margin-left:16px;}
+.lang-btn{
+  background:transparent;border:1px solid rgba(0,245,255,0.15);
+  color:var(--muted);font-size:11px;font-weight:600;padding:4px 10px;
+  border-radius:6px;cursor:pointer;transition:all .15s;letter-spacing:.3px;
+}
+.lang-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.lang-btn.active{background:rgba(0,245,255,0.12);border-color:var(--cyan);color:var(--cyan);}
+
 /* ── Scanner Table ── */
 .scanner-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
@@ -432,7 +442,142 @@ function renderPredictions() {
 }
 
 // ── Render Scanner ──
-// ── Load real markets.json ──
+// ── i18n ──
+const I18N = {
+  en: {
+    'nav.predictions':'Live Predictions','nav.performance':'Performance',
+    'nav.markets':'Markets','nav.feed':'X Feed','nav.cta':'Get Alpha →',
+    'hero.badge':'LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED',
+    'hero.h1':'Predict Markets<br>with <span class="grad">Machine Precision</span>',
+    'hero.sub':'AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>No noise. No opinions. Pure probability.',
+    'stat1':'Accuracy Rate','stat2':'Predictions Made','stat3':'Volume Tracked','stat4':'Edge vs Market',
+    'btn1':'View Live Predictions','btn2':'Scan Markets',
+    'sec.pred.label':'Live Predictions','sec.pred.title':'AI Probability Engine',
+    'sec.pred.sub':'Real-time predictions updated every 15 minutes.',
+    'sec.perf.label':'Performance Dashboard','sec.perf.title':'Track Record',
+    'sec.perf.sub':'On-chain verified results. Every prediction logged immutably.',
+    'sec.scan.label':'Polymarket Scanner','sec.scan.title':'Market Intelligence',
+    'sec.feed.label':'X Agent Feed','sec.feed.title':'Latest Intelligence',
+    'sec.feed.sub':'Real-time signals from our AI agent monitoring prediction markets.',
+    'footer.desc':'AI-Driven Prediction Engine delivering on-chain verified alpha.',
+    'footer.disclaimer':'⚠️ DISCLAIMER: SOCR Oracle provides AI-generated probability estimates for informational purposes only. This is not financial advice.',
+    'th.market':'Market','th.odds':'Odds','th.edge':'Edge','th.vol':'Volume','th.end':'End',
+  },
+  zh: {
+    'nav.predictions':'实时预测','nav.performance':'历史表现',
+    'nav.markets':'市场扫描','nav.feed':'推文','nav.cta':'获取 Alpha →',
+    'hero.badge':'实时 · AI 引擎运行中 · 847 个市场追踪中',
+    'hero.h1':'用 <span class="grad">机器精度</span><br>预测市场',
+    'hero.sub':'AI 驱动预测引擎 · 链上验证 Alpha · 只输出概率<br>无噪音，无观点，纯概率。',
+    'stat1':'准确率','stat2':'已完成预测','stat3':'追踪成交量','stat4':'相对市场优势',
+    'btn1':'查看实时预测','btn2':'扫描市场',
+    'sec.pred.label':'实时预测','sec.pred.title':'AI 概率引擎',
+    'sec.pred.sub':'每15分钟更新一次实时预测，多模型集成分析。',
+    'sec.perf.label':'历史表现','sec.perf.title':'真实记录',
+    'sec.perf.sub':'链上验证结果，每条预测均不可篡改存档。',
+    'sec.scan.label':'Polymarket 扫描仪','sec.scan.title':'市场情报',
+    'sec.feed.label':'X 智能体动态','sec.feed.title':'最新情报',
+    'sec.feed.sub':'AI 智能体实时监控预测市场发出的信号。',
+    'footer.desc':'AI 驱动预测引擎，提供链上验证的 Alpha 信号。',
+    'footer.disclaimer':'⚠️ 免责声明：SOCR Oracle 提供 AI 生成的概率估计，仅供参考，不构成任何投资建议。',
+    'th.market':'市场','th.odds':'赔率','th.edge':'优势','th.vol':'成交量','th.end':'截止',
+  },
+  ja: {
+    'nav.predictions':'リアルタイム予測','nav.performance':'実績',
+    'nav.markets':'マーケット','nav.feed':'Xフィード','nav.cta':'Alpha を取得 →',
+    'hero.badge':'ライブ · AI エンジン稼働中 · 847 マーケット追跡中',
+    'hero.h1':'<span class="grad">機械精度</span>で<br>マーケットを予測する',
+    'hero.sub':'AI 駆動予測エンジン · オンチェーン検証済み Alpha · 確率のみ提供<br>ノイズなし。意見なし。純粋な確率。',
+    'stat1':'正確率','stat2':'予測完了数','stat3':'追跡取引量','stat4':'市場との優位差',
+    'btn1':'リアルタイム予測を見る','btn2':'マーケットをスキャン',
+    'sec.pred.label':'リアルタイム予測','sec.pred.title':'AI 確率エンジン',
+    'sec.pred.sub':'マルチモデルアンサンブルによる15分ごと更新の予測。',
+    'sec.perf.label':'実績ダッシュボード','sec.perf.title':'実績記録',
+    'sec.perf.sub':'オンチェーン検証済み結果。すべての予測が不変ログに記録。',
+    'sec.scan.label':'Polymarket スキャナー','sec.scan.title':'マーケットインテリジェンス',
+    'sec.feed.label':'X エージェントフィード','sec.feed.title':'最新インテリジェンス',
+    'sec.feed.sub':'AI エージェントが予測マーケットをリアルタイム監視するシグナル。',
+    'footer.desc':'AI 駆動予測エンジンによるオンチェーン検証済み Alpha 提供。',
+    'footer.disclaimer':'⚠️ 免責事項：SOCR Oracle の予測は情報提供目的のみです。投資アドバイスではありません。',
+    'th.market':'マーケット','th.odds':'オッズ','th.edge':'エッジ','th.vol':'出来高','th.end':'終了',
+  },
+  ko: {
+    'nav.predictions':'실시간 예측','nav.performance':'성과',
+    'nav.markets':'마켓','nav.feed':'X 피드','nav.cta':'Alpha 받기 →',
+    'hero.badge':'라이브 · AI 엔진 가동 중 · 847개 마켓 추적 중',
+    'hero.h1':'<span class="grad">머신 정밀도</span>로<br>마켓을 예측하다',
+    'hero.sub':'AI 기반 예측 엔진 · 온체인 검증 Alpha · 확률만 제공<br>노이즈 없음. 의견 없음. 순수 확률.',
+    'stat1':'정확도','stat2':'예측 완료','stat3':'추적 거래량','stat4':'마켓 대비 우위',
+    'btn1':'실시간 예측 보기','btn2':'마켓 스캔',
+    'sec.pred.label':'실시간 예측','sec.pred.title':'AI 확률 엔진',
+    'sec.pred.sub':'멀티 모델 앙상블로 15분마다 업데이트되는 예측.',
+    'sec.perf.label':'성과 대시보드','sec.perf.title':'실적 기록',
+    'sec.perf.sub':'온체인 검증 결과. 모든 예측이 불변 로그에 기록됩니다.',
+    'sec.scan.label':'Polymarket 스캐너','sec.scan.title':'마켓 인텔리전스',
+    'sec.feed.label':'X 에이전트 피드','sec.feed.title':'최신 인텔리전스',
+    'sec.feed.sub':'AI 에이전트가 예측 마켓을 실시간 모니터링하는 신호.',
+    'footer.desc':'AI 기반 예측 엔진으로 온체인 검증 Alpha 제공.',
+    'footer.disclaimer':'⚠️ 면책조항: SOCR Oracle의 예측은 정보 제공 목적으로만 제공됩니다. 투자 조언이 아닙니다.',
+    'th.market':'마켓','th.odds':'배당률','th.edge':'엣지','th.vol':'거래량','th.end':'종료',
+  }
+};
+
+let currentLang = 'en';
+const ID_MAP = {
+  't-badge':'hero.badge','t-h1':'hero.h1','t-sub':'hero.sub',
+  't-stat1':'stat1','t-stat2':'stat2','t-stat3':'stat3','t-stat4':'stat4',
+  't-btn1':'btn1','t-btn2':'btn2',
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = I18N[lang];
+
+  // id-mapped elements
+  Object.entries(ID_MAP).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el && t[key]) el.innerHTML = t[key];
+  });
+
+  // nav links via data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) el.innerHTML = t[key];
+  });
+
+  // section labels/titles/subs (inject by section order)
+  const sects = [
+    ['sec.pred.label','sec.pred.title','sec.pred.sub'],
+    ['sec.perf.label','sec.perf.title','sec.perf.sub'],
+    ['sec.scan.label','sec.scan.title',null],
+    ['sec.feed.label','sec.feed.title','sec.feed.sub'],
+  ];
+  document.querySelectorAll('.section-label').forEach((el,i) => {
+    if (sects[i] && t[sects[i][0]]) el.textContent = t[sects[i][0]];
+  });
+  document.querySelectorAll('.section-title').forEach((el,i) => {
+    if (sects[i] && t[sects[i][1]]) el.textContent = t[sects[i][1]];
+  });
+  document.querySelectorAll('.section-sub').forEach((el,i) => {
+    if (sects[i] && sects[i][2] && t[sects[i][2]]) el.innerHTML = t[sects[i][2]];
+  });
+
+  // table headers
+  const ths = document.querySelectorAll('thead th');
+  const thKeys = ['th.market','th.odds',null,'th.edge','th.vol','th.end',null];
+  ths.forEach((th,i) => { if (thKeys[i] && t[thKeys[i]]) th.textContent = t[thKeys[i]]; });
+
+  // lang buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang ||
+      (lang==='zh' && btn.textContent==='中') ||
+      (lang==='ja' && btn.textContent==='日') ||
+      (lang==='ko' && btn.textContent==='한'));
+  });
+
+  // save preference
+  localStorage.setItem('socr_lang', lang);
+}
 async function loadMarkets() {
   try {
     const r = await fetch(`./markets.json?t=${Date.now()}`);
@@ -546,6 +691,10 @@ window.addEventListener('DOMContentLoaded', () => {
   renderFeed();
   loadMarkets();
 
+  // Restore language preference
+  const saved = localStorage.getItem('socr_lang');
+  if (saved && saved !== 'en') setLang(saved);
+
   // Animate hero numbers
   setTimeout(() => {
     animateCounter(document.getElementById('accuracy'), 78.4, '%');
@@ -564,13 +713,19 @@ window.addEventListener('DOMContentLoaded', () => {
     <span class="logo-text">SOCR <span>Oracle</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#predictions">Live Predictions</a></li>
-    <li><a href="#performance">Performance</a></li>
-    <li><a href="#scanner">Markets</a></li>
-    <li><a href="#feed">X Feed</a></li>
+    <li><a href="#predictions" data-i18n="nav.predictions">Live Predictions</a></li>
+    <li><a href="#performance" data-i18n="nav.performance">Performance</a></li>
+    <li><a href="#scanner" data-i18n="nav.markets">Markets</a></li>
+    <li><a href="#feed" data-i18n="nav.feed">X Feed</a></li>
     <li><a href="#api">API</a></li>
   </ul>
-  <a href="#predictions" class="nav-cta">Get Alpha →</a>
+  <a href="#predictions" class="nav-cta" data-i18n="nav.cta">Get Alpha →</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('zh')">中</button>
+    <button class="lang-btn" onclick="setLang('ja')">日</button>
+    <button class="lang-btn" onclick="setLang('ko')">한</button>
+  </div>
   <div class="hamburger"><span></span><span></span><span></span></div>
 </nav>
 
@@ -581,32 +736,32 @@ window.addEventListener('DOMContentLoaded', () => {
   <div class="hero-content">
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED
+      <span id="t-badge">LIVE · AI ENGINE ACTIVE · 847 MARKETS TRACKED</span>
     </div>
-    <h1>Predict Markets<br>with <span class="grad">Machine Precision</span></h1>
-    <p class="hero-sub">AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>
+    <h1 id="t-h1">Predict Markets<br>with <span class="grad">Machine Precision</span></h1>
+    <p class="hero-sub" id="t-sub">AI-Driven Prediction Engine • On-Chain Verified Alpha • Probabilities Only.<br>
     No noise. No opinions. Pure probability.</p>
     <div class="hero-stats">
       <div class="hstat">
         <div class="hstat-num" id="accuracy">78.4<span class="unit">%</span></div>
-        <div class="hstat-label">Accuracy Rate</div>
+        <div class="hstat-label" id="t-stat1">Accuracy Rate</div>
       </div>
       <div class="hstat">
         <div class="hstat-num">2,341<span class="unit" style="color:var(--green)"></span></div>
-        <div class="hstat-label">Predictions Made</div>
+        <div class="hstat-label" id="t-stat2">Predictions Made</div>
       </div>
       <div class="hstat">
         <div class="hstat-num">$<span id="vol">4.2</span><span class="unit">M</span></div>
-        <div class="hstat-label">Volume Tracked</div>
+        <div class="hstat-label" id="t-stat3">Volume Tracked</div>
       </div>
       <div class="hstat">
         <div class="hstat-num" style="color:var(--green)">+19.3<span class="unit">%</span></div>
-        <div class="hstat-label">Edge vs Market</div>
+        <div class="hstat-label" id="t-stat4">Edge vs Market</div>
       </div>
     </div>
     <div class="hero-btns">
-      <a href="#predictions" class="btn-primary">View Live Predictions</a>
-      <a href="#scanner" class="btn-secondary">Scan Markets</a>
+      <a href="#predictions" class="btn-primary" id="t-btn1">View Live Predictions</a>
+      <a href="#scanner" class="btn-secondary" id="t-btn2">Scan Markets</a>
     </div>
   </div>
 </section>
