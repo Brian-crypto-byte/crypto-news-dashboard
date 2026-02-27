@@ -289,7 +289,12 @@ footer{
   <div class="section-head">
     <div class="section-label">Polymarket Scanner</div>
     <h2 class="section-title">Market Intelligence</h2>
-    <p class="section-sub">Live comparison of our AI probability vs market odds. Positive edge = opportunity.</p>
+    <p class="section-sub">即将结束的市场实时扫描。<span id="scanUpdated" style="color:var(--cyan);margin-left:8px;font-size:12px;"></span></p>
+    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+      <span style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:#FF6B6B;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">⚡ 24h内: <span id="cnt24h">-</span>个</span>
+      <span style="background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);color:var(--cyan);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">🕐 48h内: <span id="cnt48h">-</span>个</span>
+      <span style="background:rgba(0,255,159,0.08);border:1px solid rgba(0,255,159,0.2);color:var(--green);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;">📅 7天内: <span id="cnt7d">-</span>个</span>
+    </div>
   </div>
   <div class="glass scanner-card">
     <div class="scanner-wrap">
@@ -427,20 +432,79 @@ function renderPredictions() {
 }
 
 // ── Render Scanner ──
-function renderScanner() {
+// ── Load real markets.json ──
+async function loadMarkets() {
+  try {
+    const r = await fetch(`./markets.json?t=${Date.now()}`);
+    const d = await r.json();
+    document.getElementById('scanUpdated').textContent = '更新于 ' + d.updatedAt;
+    document.getElementById('cnt24h').textContent = d.summary['24h'];
+    document.getElementById('cnt48h').textContent = d.summary['48h'];
+    document.getElementById('cnt7d').textContent  = d.summary['7d'];
+    renderLiveMarkets(d.markets);
+    renderScannerFromData(d.markets);
+  } catch(e) {
+    console.error('markets.json load failed', e);
+  }
+}
+
+function renderLiveMarkets(markets) {
+  const grid = document.getElementById('predGrid');
+  if (!markets || !markets.length) return;
+  grid.innerHTML = markets.map(m => {
+    const odds   = m.odds || {};
+    const keys   = Object.keys(odds);
+    const topKey = keys.sort((a,b) => odds[b]-odds[a])[0];
+    const topVal = topKey ? odds[topKey] : 50;
+    const dir    = topVal >= 70 ? 'bull' : topVal <= 30 ? 'bear' : 'neut';
+    const conf   = topVal >= 75 ? 'HIGH' : topVal >= 55 ? 'MED' : 'LOW';
+    const h      = m.hoursLeft;
+    const timeStr = h < 24 ? `${h.toFixed(1)}h` : `${(h/24).toFixed(1)}d`;
+    const oddsStr = keys.slice(0,2).map(k=>`${k} ${odds[k]}%`).join(' / ') || 'N/A';
+    return `
+    <div class="glass pred-card">
+      <div class="pred-header">
+        <div class="pred-title">${m.question}</div>
+        <span class="pred-badge ${conf.toLowerCase()}">${conf}</span>
+      </div>
+      <div class="pred-prob ${dir}">${topVal}<span style="font-size:.45em;opacity:.7">%</span></div>
+      <div class="pred-meta">${oddsStr}</div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Top Outcome</span><span>${topVal}%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill ${dir==='bear'?'bear':''}" style="width:0%" data-w="${topVal}%"></div>
+        </div>
+      </div>
+      <div class="pred-footer">
+        <span class="pred-time">⏱ ${timeStr} left</span>
+        <a href="${m.link}" target="_blank" class="pred-link">Polymarket ↗</a>
+      </div>
+      <div style="font-size:11px;color:#4A6080;margin-top:12px;line-height:1.6;border-top:1px solid rgba(0,245,255,0.08);padding-top:10px;">
+        💡 ${m.prediction}
+      </div>
+    </div>`;
+  }).join('');
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill').forEach(el => el.style.width = el.dataset.w);
+  }, 100);
+}
+
+function renderScannerFromData(markets) {
   const tbody = document.getElementById('scannerBody');
-  tbody.innerHTML = SCANNER.map(r => {
-    const edge = r.our - r.mkt;
-    const edgeClass = edge > 0 ? 'diff-pos' : 'diff-neg';
-    const edgeStr = (edge > 0 ? '+' : '') + edge + '%';
+  tbody.innerHTML = markets.map(m => {
+    const odds  = m.odds || {};
+    const keys  = Object.keys(odds);
+    const h     = m.hoursLeft;
+    const timeStr = h < 24 ? `${h.toFixed(1)}h` : `${(h/24).toFixed(1)}d`;
+    const oddsStr = keys.slice(0,2).map(k=>`${k} <b>${odds[k]}%</b>`).join(' / ') || 'N/A';
+    const vol   = m.volume >= 1e6 ? `$${(m.volume/1e6).toFixed(1)}M` : `$${(m.volume/1e3).toFixed(0)}K`;
     return `<tr>
-      <td class="td-market">${r.market}</td>
-      <td class="td-our">${r.our}%</td>
-      <td class="td-mkt">${r.mkt}%</td>
-      <td class="${edgeClass}">${edgeStr}</td>
-      <td class="td-vol">${r.vol}</td>
-      <td class="td-end">${r.end}</td>
-      <td><a href="https://polymarket.com" target="_blank" style="color:var(--cyan);font-size:11px;text-decoration:none;font-weight:600;">View ↗</a></td>
+      <td class="td-market">${m.question}</td>
+      <td colspan="2" style="color:var(--cyan);font-size:12px;">${oddsStr}</td>
+      <td style="color:var(--muted);font-size:11px;">—</td>
+      <td class="td-vol">${vol}</td>
+      <td class="td-end" style="color:${h<24?'#FF6B6B':'var(--muted)'}">⏱ ${timeStr}</td>
+      <td><a href="${m.link}" target="_blank" style="color:var(--cyan);font-size:11px;text-decoration:none;font-weight:600;">View ↗</a></td>
     </tr>`;
   }).join('');
 }
@@ -479,9 +543,8 @@ function animateCounter(el, target, suffix='') {
 
 // ── Init ──
 window.addEventListener('DOMContentLoaded', () => {
-  renderPredictions();
-  renderScanner();
   renderFeed();
+  loadMarkets();
 
   // Animate hero numbers
   setTimeout(() => {
@@ -489,13 +552,8 @@ window.addEventListener('DOMContentLoaded', () => {
     animateCounter(document.getElementById('vol'), 4.2, '');
   }, 400);
 
-  // Refresh scanner every 30s (simulate live)
-  setInterval(() => {
-    SCANNER.forEach(r => {
-      r.mkt = Math.max(5, Math.min(95, r.mkt + (Math.random() - 0.5) * 2));
-    });
-    renderScanner();
-  }, 30000);
+  // Reload every hour
+  setInterval(loadMarkets, 3600000);
 });
 </script>
 </body>
