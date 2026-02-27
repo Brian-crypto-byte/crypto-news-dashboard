@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-27 16:28",
+  "updatedAt": "2026-02-27 16:29",
   "news": [
     {
       "id": 513999,
@@ -90,51 +90,5 @@
       "ts": "2026-02-26T13:41:48.169265Z"
     }
   ],
-  "tweets": [
-    {
-      "id": 942417,
-      "user": "Blogs",
-      "text": "THE BLOCK: Circle shares tap $90 as Bernstein sees ‘clear divergence from crypto,’ Mizuho flags Polymarket boost",
-      "summary": "Circle&#39;s stock price hit $90, with Bernstein arguing that it has a clear divergence from cryptocurrencies, and Mizuho pointing out that Polymarket",
-      "score": 65,
-      "signal": "long",
-      "link": ""
-    },
-    {
-      "id": 793771,
-      "user": "Blogs",
-      "text": "DECRYPT: Can Meme Coins Power a Senate Bid? Virginia’s Mark Moran Says Yes",
-      "summary": "Mark Moran of Virginia asked whether memes could help in a Senate election. He gave a positive answer.",
-      "score": 65,
-      "signal": "neutral",
-      "link": ""
-    },
-    {
-      "id": 793767,
-      "user": "Blogs",
-      "text": "DECRYPT: Can Meme Coins Power a Senate Bid? Virginia's Mark Moran Says Yes",
-      "summary": "Mark Moran of Virginia said he would give an affirmative answer as to whether memes could help his Senate campaign.",
-      "score": 65,
-      "signal": "neutral",
-      "link": ""
-    },
-    {
-      "id": 833884,
-      "user": "trustwallet",
-      "text": "Meme coins aren't just a phase anymore.<br/><br/>They're one of the highest-volume categories on DEXs in 2026.<br/><br/>We're not here to judge your bags, we're here to make sure you can trade them.<b",
-      "summary": "In 2026, MEME coins became one of the highest-traded categories on decentralized exchanges, and related service providers claimed to offer fast, secur",
-      "score": 60,
-      "signal": "neutral",
-      "link": "https://twitter.com/trustwallet/status/2024079906498294239"
-    },
-    {
-      "id": 864476,
-      "user": "Pump.fun (@Pumpfun)",
-      "text": "How we 10x improved our React Native app startup time\n\nWritten by Alex, Staff Engineer & Team Lead @ Baton Corporation\n \nWhen the day came to introduce the world to the Pump.fun app (meme coin trading",
-      "summary": "Alex of Baton Corporation improved Pump.fun app startup time by 10 times by switching the style library of React Native apps from Nativewind to React ",
-      "score": 20,
-      "signal": "neutral",
-      "link": "https://twitter.com/Pumpfun/status/2024888623103955406"
-    }
-  ]
+  "tweets": []
 }
