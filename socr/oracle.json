@@ -1,0 +1,265 @@
+{
+  "updatedAt": "2026-02-27 23:12",
+  "markets": [
+    {
+      "id": "38900",
+      "question": "Will Russia capture all of Pokrovsk by September 30?",
+      "hoursLeft": 8.8,
+      "odds": {
+        "Yes": 0.0,
+        "No": 100.0
+      },
+      "volume": 4822708.832315,
+      "link": "https://polymarket.com/event/will-russia-capture-all-of-pokrovsk-by-september-30",
+      "agents": [
+        {
+          "agent": "A",
+          "name": "Agent A · Data",
+          "icon": "📊",
+          "model": "gpt-5",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "B",
+          "name": "Agent B · Sentiment",
+          "icon": "📰",
+          "model": "claude-sonnet-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "C",
+          "name": "Agent C · On-Chain",
+          "icon": "⛓️",
+          "model": "gemini-2.5-pro",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "D",
+          "name": "Agent D · Devil",
+          "icon": "😈",
+          "model": "claude-opus-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        }
+      ],
+      "consensus": {
+        "yes_prob": null,
+        "no_prob": null,
+        "divergence": 0,
+        "agent_probs": {},
+        "signal": "NEUTRAL"
+      }
+    },
+    {
+      "id": "20461",
+      "question": "Will GTA 6 cost $100+?",
+      "hoursLeft": 20.8,
+      "odds": {
+        "Yes": 0.1,
+        "No": 99.9
+      },
+      "volume": 6926437.040651,
+      "link": "https://polymarket.com/event/will-gta-6-cost-100",
+      "agents": [
+        {
+          "agent": "A",
+          "name": "Agent A · Data",
+          "icon": "📊",
+          "model": "gpt-5",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "B",
+          "name": "Agent B · Sentiment",
+          "icon": "📰",
+          "model": "claude-sonnet-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "C",
+          "name": "Agent C · On-Chain",
+          "icon": "⛓️",
+          "model": "gemini-2.5-pro",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "D",
+          "name": "Agent D · Devil",
+          "icon": "😈",
+          "model": "claude-opus-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        }
+      ],
+      "consensus": {
+        "yes_prob": null,
+        "no_prob": null,
+        "divergence": 0,
+        "agent_probs": {},
+        "signal": "NEUTRAL"
+      }
+    },
+    {
+      "id": "21206",
+      "question": "Rojas guilty in Texas illegal abortion case?",
+      "hoursLeft": 20.8,
+      "odds": {
+        "Yes": 2.2,
+        "No": 97.8
+      },
+      "volume": 60817.716253,
+      "link": "https://polymarket.com/event/rojas-guilty-in-texas-illegal-abortion-case",
+      "agents": [
+        {
+          "agent": "A",
+          "name": "Agent A · Data",
+          "icon": "📊",
+          "model": "gpt-5",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "B",
+          "name": "Agent B · Sentiment",
+          "icon": "📰",
+          "model": "claude-sonnet-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "C",
+          "name": "Agent C · On-Chain",
+          "icon": "⛓️",
+          "model": "gemini-2.5-pro",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "D",
+          "name": "Agent D · Devil",
+          "icon": "😈",
+          "model": "claude-opus-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        }
+      ],
+      "consensus": {
+        "yes_prob": null,
+        "no_prob": null,
+        "divergence": 0,
+        "agent_probs": {},
+        "signal": "NEUTRAL"
+      }
+    },
+    {
+      "id": "22862",
+      "question": "Will the U.S. collect less than $100b in revenue in 2025?",
+      "hoursLeft": 20.8,
+      "odds": {
+        "Yes": 99.1,
+        "No": 0.9
+      },
+      "volume": 8841951.26616,
+      "link": "https://polymarket.com/event/how-much-revenue-will-the-us-raise-from-tariffs-in-2025",
+      "agents": [
+        {
+          "agent": "A",
+          "name": "Agent A · Data",
+          "icon": "📊",
+          "model": "gpt-5",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "B",
+          "name": "Agent B · Sentiment",
+          "icon": "📰",
+          "model": "claude-sonnet-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "C",
+          "name": "Agent C · On-Chain",
+          "icon": "⛓️",
+          "model": "gemini-2.5-pro",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "D",
+          "name": "Agent D · Devil",
+          "icon": "😈",
+          "model": "claude-opus-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        }
+      ],
+      "consensus": {
+        "yes_prob": null,
+        "no_prob": null,
+        "divergence": 0,
+        "agent_probs": {},
+        "signal": "NEUTRAL"
+      }
+    },
+    {
+      "id": "22863",
+      "question": "Will tariffs generate >$250b in 2025?",
+      "hoursLeft": 20.8,
+      "odds": {
+        "Yes": 0.3,
+        "No": 99.7
+      },
+      "volume": 1366474.590242,
+      "link": "https://polymarket.com/event/will-tariffs-generate-250b-in-2025",
+      "agents": [
+        {
+          "agent": "A",
+          "name": "Agent A · Data",
+          "icon": "📊",
+          "model": "gpt-5",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "B",
+          "name": "Agent B · Sentiment",
+          "icon": "📰",
+          "model": "claude-sonnet-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "C",
+          "name": "Agent C · On-Chain",
+          "icon": "⛓️",
+          "model": "gemini-2.5-pro",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "agent": "D",
+          "name": "Agent D · Devil",
+          "icon": "😈",
+          "model": "claude-opus-4-6",
+          "output": "",
+          "error": "post() got an unexpected keyword argument 'proxies'"
+        }
+      ],
+      "consensus": {
+        "yes_prob": null,
+        "no_prob": null,
+        "divergence": 0,
+        "agent_probs": {},
+        "signal": "NEUTRAL"
+      }
+    }
+  ]
+}
