@@ -3,263 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📰 Crypto News Dashboard</title>
+<title>📰 Crypto Dashboard</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#0f0f13; color:#e0e0e0; font-family:'Segoe UI',system-ui,sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;}
 
-header {
-  background:#16161e; border-bottom:1px solid #2a2a3a;
-  padding:14px 24px; display:flex; align-items:center;
-  justify-content:space-between; position:sticky; top:0; z-index:10;
+/* ── Header ── */
+header{
+  background:#0f0f1a;border-bottom:1px solid #1e1e30;
+  padding:16px 32px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(12px);
 }
-header h1 { font-size:17px; font-weight:700; color:#fff; }
-header h1 span { color:#7c6af7; }
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{font-size:22px;}
+.logo-text{font-size:16px;font-weight:700;color:#fff;letter-spacing:.3px;}
+.logo-text span{color:#7c6af7;}
+.header-right{display:flex;align-items:center;gap:12px;}
+.updated{font-size:11px;color:#444;}
+.btn{background:#7c6af7;border:none;color:#fff;padding:7px 16px;
+  border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .15s;display:flex;align-items:center;gap:5px;}
+.btn:hover{background:#6a58e0;transform:translateY(-1px);}
+.btn:disabled{background:#2a2a3a;cursor:default;transform:none;}
 
-.controls { display:flex; gap:8px; align-items:center; }
-.btn {
-  background:#7c6af7; border:none; color:#fff;
-  padding:6px 14px; border-radius:6px; font-size:13px;
-  font-weight:600; cursor:pointer; transition:background .15s;
-}
-.btn:hover { background:#6a58e0; }
-.btn:disabled { background:#3a3a5a; cursor:default; }
+/* ── Tabs ── */
+.tabs{display:flex;gap:0;background:#0c0c16;border-bottom:1px solid #1a1a2a;padding:0 32px;}
+.tab{padding:12px 20px;font-size:13px;font-weight:500;color:#555;
+  cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.tab.active{color:#7c6af7;border-bottom-color:#7c6af7;}
+.tab:hover:not(.active){color:#888;}
 
-.status-bar {
-  background:#12121a; padding:7px 24px;
-  font-size:12px; color:#555;
-  display:flex; justify-content:space-between;
-}
-#countdown { color:#7c6af7; font-weight:600; }
-#updatedAt { color:#444; }
+/* ── Filters ── */
+.filter-bar{padding:12px 32px;display:flex;gap:8px;align-items:center;
+  background:#0c0c16;border-bottom:1px solid #1a1a2a;}
+.fbtn{padding:5px 16px;border-radius:20px;font-size:12px;font-weight:500;
+  border:1px solid #222;background:transparent;color:#666;cursor:pointer;transition:all .15s;}
+.fbtn:hover{border-color:#444;color:#aaa;}
+.fbtn.active{background:#7c6af7;border-color:#7c6af7;color:#fff;}
+.fbtn.long.active{background:#0d2e16;border-color:#22c55e;color:#22c55e;}
+.fbtn.short.active{background:#2e0d0d;border-color:#ef4444;color:#ef4444;}
+.filter-right{margin-left:auto;font-size:11px;color:#444;}
 
-.tabs {
-  display:flex; gap:0; background:#12121a;
-  border-bottom:1px solid #1a1a2a; padding:0 24px;
+/* ── Content ── */
+.content{max-width:1200px;margin:0 auto;padding:24px 32px;}
+
+/* Featured (top story) */
+.featured{
+  display:flex;gap:0;background:#13131f;border:1px solid #1e1e30;
+  border-radius:14px;overflow:hidden;margin-bottom:24px;
+  transition:border-color .15s;text-decoration:none;color:inherit;
 }
-.tab {
-  padding:10px 18px; font-size:13px; font-weight:500;
-  color:#555; cursor:pointer; border-bottom:2px solid transparent;
+.featured:hover{border-color:#3a3a5a;}
+.featured.long{border-left:4px solid #22c55e;}
+.featured.short{border-left:4px solid #ef4444;}
+.featured.neutral{border-left:4px solid #2a2a3a;}
+.featured-body{padding:28px 32px;flex:1;}
+.featured-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.feat-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.8px;}
+.feat-badge.long{background:#0d2e16;color:#22c55e;}
+.feat-badge.short{background:#2e0d0d;color:#ef4444;}
+.feat-badge.neutral{background:#1a1a2a;color:#555;}
+.feat-source{font-size:11px;color:#555;background:#1a1a2a;padding:2px 8px;border-radius:4px;}
+.feat-score{font-size:11px;color:#7c6af7;font-weight:700;margin-left:auto;}
+.featured-title{font-size:18px;font-weight:700;line-height:1.5;color:#f0f0f0;margin-bottom:12px;}
+.featured-cn{font-size:14px;color:#bbb;line-height:1.7;border-top:1px solid #1e1e2e;padding-top:12px;}
+
+/* News grid */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
+.card{
+  background:#13131f;border:1px solid #1e1e30;border-radius:12px;
+  padding:20px;display:block;text-decoration:none;color:inherit;
+  transition:all .15s;position:relative;overflow:hidden;
+}
+.card:hover{border-color:#3a3a5a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.card.long{border-left:3px solid #22c55e;}
+.card.short{border-left:3px solid #ef4444;}
+.card.neutral{border-left:3px solid #1e1e30;}
+.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.card-source{font-size:11px;color:#555;background:#1a1a2a;padding:2px 8px;border-radius:4px;}
+.card-sig{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;}
+.card-sig.long{background:#0d2e16;color:#22c55e;}
+.card-sig.short{background:#2e0d0d;color:#ef4444;}
+.card-sig.neutral{background:#1a1a2a;color:#555;}
+.card-grade{
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:700;margin-left:auto;
+}
+.card-grade.a{background:#0d2e16;color:#22c55e;border:1.5px solid #22c55e;}
+.card-grade.b{background:#1a2a0a;color:#84cc16;border:1.5px solid #84cc16;}
+.card-grade.c{background:#1a1a2a;color:#444;border:1.5px solid #2a2a3a;}
+.card-title{font-size:14px;font-weight:600;line-height:1.55;color:#ddd;margin-bottom:10px;}
+.card-cn{font-size:13px;color:#999;line-height:1.65;
+  border-top:1px solid #1a1a2a;padding-top:10px;margin-bottom:10px;}
+.card-foot{display:flex;justify-content:space-between;font-size:11px;color:#444;}
+
+/* Tweet feed */
+.tweet-feed{display:flex;flex-direction:column;gap:12px;}
+.tweet{
+  background:#13131f;border:1px solid #1e1e30;border-radius:12px;
+  padding:20px 24px;display:block;text-decoration:none;color:inherit;
   transition:all .15s;
 }
-.tab.active { color:#7c6af7; border-bottom-color:#7c6af7; }
+.tweet:hover{border-color:#3a3a5a;transform:translateY(-1px);}
+.tweet.long{border-left:3px solid #22c55e;}
+.tweet.short{border-left:3px solid #ef4444;}
+.tweet-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#7c6af7 0%,#4a9eff 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:#fff;
+}
+.tweet-user-info .name{font-size:14px;font-weight:600;color:#ddd;}
+.tweet-user-info .handle{font-size:12px;color:#555;margin-top:1px;}
+.tweet-sig{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.5px;margin-left:auto;}
+.tweet-sig.long{background:#0d2e16;color:#22c55e;}
+.tweet-sig.short{background:#2e0d0d;color:#ef4444;}
+.tweet-sig.neutral{background:#1a1a2a;color:#555;}
+.tweet-text{font-size:14px;line-height:1.7;color:#ccc;margin-bottom:10px;}
+.tweet-cn{font-size:13px;color:#888;line-height:1.6;
+  border-top:1px solid #1a1a2a;padding-top:10px;margin-bottom:10px;}
+.tweet-stats{display:flex;gap:16px;font-size:12px;color:#444;}
 
-.filter-bar {
-  padding:10px 24px; display:flex; gap:8px;
-  background:#12121a; border-bottom:1px solid #1a1a2a;
-}
-.fbtn {
-  padding:4px 14px; border-radius:20px; font-size:12px;
-  border:1px solid #2a2a3a; background:#1e1e2e; color:#777;
-  cursor:pointer; transition:all .15s;
-}
-.fbtn.active         { background:#7c6af7; border-color:#7c6af7; color:#fff; }
-.fbtn.long.active    { background:#163d1e; border-color:#22c55e; color:#22c55e; }
-.fbtn.short.active   { background:#3d1212; border-color:#ef4444; color:#ef4444; }
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:12px; padding:18px 24px;
-}
-
-/* 新闻卡片 */
-.card {
-  background:#16161e; border:1px solid #222232;
-  border-radius:10px; padding:14px;
-  transition:transform .12s,border-color .12s;
-  cursor:pointer; text-decoration:none; display:block; color:inherit;
-}
-.card:hover { transform:translateY(-2px); border-color:#3a3a5a; }
-.card.long  { border-left:3px solid #22c55e; }
-.card.short { border-left:3px solid #ef4444; }
-.card.neutral { border-left:3px solid #333; }
-
-.card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
-.source { font-size:11px; color:#666; background:#1a1a2e; padding:2px 7px; border-radius:4px; }
-.badges { display:flex; gap:5px; align-items:center; }
-.sig { font-size:11px; font-weight:700; padding:2px 7px; border-radius:4px; text-transform:uppercase; }
-.sig.long    { background:#163d1e; color:#22c55e; }
-.sig.short   { background:#3d1212; color:#ef4444; }
-.sig.neutral { background:#1e1e2e; color:#555; }
-.grade {
-  width:34px; height:34px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:12px; font-weight:700;
-}
-.grade.a { background:#163d1e; color:#22c55e; border:2px solid #22c55e; }
-.grade.b { background:#1f3010; color:#84cc16; border:2px solid #84cc16; }
-.grade.c { background:#1a1a2e; color:#555;    border:2px solid #2a2a3a; }
-
-.title   { font-size:13px; line-height:1.55; color:#ddd; margin-bottom:8px; }
-.summary { font-size:12px; color:#777; line-height:1.5; border-top:1px solid #1e1e2e; padding-top:7px; }
-.cn-summary { color:#aaa; font-size:13px; }
-.card-foot { display:flex; justify-content:space-between; font-size:11px; color:#444; margin-top:8px; }
-
-/* 推文卡片 */
-.tweet-card {
-  background:#16161e; border:1px solid #222232;
-  border-radius:10px; padding:14px;
-  transition:transform .12s,border-color .12s;
-  text-decoration:none; display:block; color:inherit;
-}
-.tweet-card:hover { transform:translateY(-2px); border-color:#3a3a5a; }
-.tweet-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-.avatar {
-  width:36px; height:36px; border-radius:50%;
-  background:linear-gradient(135deg,#7c6af7,#4a9eff);
-  display:flex; align-items:center; justify-content:center;
-  font-size:14px; font-weight:700; color:#fff; flex-shrink:0;
-}
-.tweet-user { font-size:13px; font-weight:600; color:#ccc; }
-.tweet-handle { font-size:11px; color:#555; }
-.tweet-text { font-size:13px; line-height:1.6; color:#ddd; margin-bottom:10px; }
-.tweet-stats { display:flex; gap:14px; font-size:12px; color:#555; }
-.tweet-stats span { display:flex; align-items:center; gap:4px; }
-
-.center { display:flex; flex-direction:column; align-items:center;
-          justify-content:center; padding:80px; color:#444; font-size:14px; }
-.spinner {
-  width:32px; height:32px; border:3px solid #1e1e2e;
-  border-top-color:#7c6af7; border-radius:50%;
-  animation:spin .7s linear infinite; margin-bottom:14px;
-}
-@keyframes spin { to { transform:rotate(360deg); } }
-.error-box {
-  background:#2a1010; border:1px solid #5a1010;
-  border-radius:8px; padding:16px 20px;
-  margin:20px 24px; font-size:13px; color:#ef9090;
-}
+/* States */
+.center{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:100px;color:#333;font-size:14px;}
+.spinner{width:36px;height:36px;border:3px solid #1a1a2a;
+  border-top-color:#7c6af7;border-radius:50%;
+  animation:spin .7s linear infinite;margin-bottom:16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.empty{text-align:center;padding:80px;color:#333;font-size:15px;}
+.error-box{background:#200a0a;border:1px solid #4a1a1a;border-radius:10px;
+  padding:20px 24px;margin:24px 0;font-size:13px;color:#ef9090;}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>📰 Crypto <span>Dashboard</span></h1>
-  <div class="controls">
+  <div class="logo">
+    <span class="logo-icon">📰</span>
+    <span class="logo-text">Crypto <span>Dashboard</span></span>
+  </div>
+  <div class="header-right">
+    <span class="updated" id="updatedAt">-</span>
     <button class="btn" id="refreshBtn" onclick="loadData()">🔄 刷新</button>
   </div>
 </header>
-
-<div class="status-bar">
-  <span id="statusText">就绪</span>
-  <span>下次刷新 <span id="countdown">60:00</span> &nbsp;|&nbsp; <span id="updatedAt">-</span></span>
-</div>
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('news',this)">📰 新闻</div>
   <div class="tab" onclick="switchTab('tweets',this)">🐦 推文</div>
 </div>
 
-<div class="filter-bar" id="newsFilters">
+<div class="filter-bar" id="filterBar">
   <button class="fbtn active" onclick="setFilter('all',this)">全部</button>
   <button class="fbtn long"   onclick="setFilter('long',this)">🟢 Long</button>
   <button class="fbtn short"  onclick="setFilter('short',this)">🔴 Short</button>
   <button class="fbtn"        onclick="setFilter('neutral',this)">⚪ Neutral</button>
+  <span class="filter-right" id="countText"></span>
 </div>
 
-<div id="grid" class="grid">
-  <div class="center"><div class="spinner"></div>加载中...</div>
+<div class="content">
+  <div id="main">
+    <div class="center"><div class="spinner"></div>加载中...</div>
+  </div>
 </div>
 
 <script>
-let data = {tweets:[], news:[]};
-let tab = 'news', filter = 'all', timer, cd = 3600;
+let data={tweets:[],news:[]}, tab='news', filter='all';
+let timer, cd=3600;
 
-function switchTab(t, el) {
-  tab = t;
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+function gradeClass(g){
+  if(!g) return 'c';
+  return g.startsWith('A')?'a':g.startsWith('B')?'b':'c';
+}
+
+function timeAgo(ts){
+  if(!ts) return '';
+  const m=Math.floor((Date.now()-new Date(ts))/60000);
+  if(m<1) return '刚刚';
+  if(m<60) return m+'分钟前';
+  const h=Math.floor(m/60);
+  return h<24?h+'小时前':Math.floor(h/24)+'天前';
+}
+
+function switchTab(t,el){
+  tab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('newsFilters').style.display = t === 'news' ? 'flex' : 'none';
+  document.getElementById('filterBar').style.display=t==='news'?'flex':'none';
   render();
 }
 
-function setFilter(f, el) {
-  filter = f;
-  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+function setFilter(f,el){
+  filter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   render();
 }
 
-function gradeClass(g) {
-  if (!g) return 'c';
-  return g.startsWith('A') ? 'a' : g.startsWith('B') ? 'b' : 'c';
+function render(){
+  if(tab==='news') renderNews();
+  else renderTweets();
 }
 
-function render() {
-  const grid = document.getElementById('grid');
-  if (tab === 'news') renderNews(grid);
-  else renderTweets(grid);
-}
+function renderNews(){
+  let items=filter==='all'?data.news:data.news.filter(n=>n.signal===filter);
+  const el=document.getElementById('main');
+  document.getElementById('countText').textContent=items.length+'条';
+  if(!items.length){el.innerHTML='<div class="empty">📭 暂无新闻</div>';return;}
 
-function renderNews(grid) {
-  let items = filter === 'all' ? data.news : data.news.filter(n => n.signal === filter);
-  if (!items.length) { grid.innerHTML = '<div class="center">📭 暂无新闻</div>'; return; }
-  grid.innerHTML = items.map(n => `
-    <a class="card ${n.signal||'neutral'}" href="${n.link||'#'}" target="_blank" rel="noopener">
-      <div class="card-top">
-        <span class="source">${n.source||''}</span>
-        <div class="badges">
-          <span class="sig ${n.signal||'neutral'}">${n.signal||'neutral'}</span>
-          <div class="grade ${gradeClass(n.grade)}">${n.grade||'C'}</div>
+  const [top,...rest]=items;
+
+  const featHtml=`
+    <a class="featured ${top.signal||'neutral'}" href="${top.link||'#'}" target="_blank" rel="noopener">
+      <div class="featured-body">
+        <div class="featured-meta">
+          <span class="feat-badge ${top.signal||'neutral'}">${top.signal||'neutral'}</span>
+          <span class="feat-source">${top.source||''}</span>
+          <span class="feat-score">💯 ${top.score}分 ${top.grade||''}</span>
         </div>
+        <div class="featured-title">${top.text||''}</div>
+        ${top.summary?`<div class="featured-cn">${top.summary}</div>`:''}
       </div>
-      <div class="title">${n.text||''}</div>
-      ${n.summary ? `<div class="summary cn-summary">${n.summary}</div>` : ''}
-      <div class="card-foot"><span>💯 ${n.score}分</span></div>
+    </a>`;
+
+  const gridHtml=rest.map(n=>`
+    <a class="card ${n.signal||'neutral'}" href="${n.link||'#'}" target="_blank" rel="noopener">
+      <div class="card-meta">
+        <span class="card-source">${n.source||''}</span>
+        <span class="card-sig ${n.signal||'neutral'}">${n.signal||'neutral'}</span>
+        <div class="card-grade ${gradeClass(n.grade)}">${n.grade||'C'}</div>
+      </div>
+      <div class="card-title">${n.text||''}</div>
+      ${n.summary?`<div class="card-cn">${n.summary}</div>`:''}
+      <div class="card-foot">
+        <span>💯 ${n.score}分</span>
+        <span>${timeAgo(n.ts)}</span>
+      </div>
     </a>`).join('');
+
+  el.innerHTML=featHtml+(rest.length?`<div class="news-grid">${gridHtml}</div>`:'');
 }
 
-function renderTweets(grid) {
-  const items = data.tweets;
-  if (!items.length) { grid.innerHTML = '<div class="center">📭 暂无推文</div>'; return; }
-  grid.innerHTML = items.map(t => `
-    <a class="tweet-card" href="${t.url||'#'}" target="_blank" rel="noopener">
-      <div class="tweet-top">
+function renderTweets(){
+  const items=data.tweets;
+  const el=document.getElementById('main');
+  if(!items.length){el.innerHTML='<div class="empty">📭 暂无推文</div>';return;}
+  el.innerHTML=`<div class="tweet-feed">${items.map(t=>`
+    <a class="tweet ${t.signal||'neutral'}" href="${t.link||'#'}" target="_blank" rel="noopener">
+      <div class="tweet-header">
         <div class="avatar">${(t.user||'?')[0].toUpperCase()}</div>
-        <div>
-          <div class="tweet-user">${t.user||'?'}</div>
-          <div class="tweet-handle">@${t.user||'?'}</div>
+        <div class="tweet-user-info">
+          <div class="name">${t.user||'?'}</div>
+          <div class="handle">${t.handle||''}</div>
         </div>
+        <span class="tweet-sig ${t.signal||'neutral'}">${t.signal||'neutral'}</span>
       </div>
       <div class="tweet-text">${t.text||''}</div>
-      ${t.summary ? `<div class="summary cn-summary">${t.summary}</div>` : ''}
-      <div class="tweet-stats">
-        <span>❤️ ${(t.likes||0).toLocaleString()}</span>
-        <span>🔁 ${(t.retweets||0).toLocaleString()}</span>
-      </div>
-    </a>`).join('');
+      ${t.summary?`<div class="tweet-cn">${t.summary}</div>`:''}
+    </a>`).join('')}</div>`;
 }
 
-function startTimer() {
-  cd = 3600; clearInterval(timer);
-  timer = setInterval(() => {
+function startTimer(){
+  cd=3600; clearInterval(timer);
+  timer=setInterval(()=>{
     cd--;
-    const m = Math.floor(cd/60), s = cd%60;
-    document.getElementById('countdown').textContent =
-      `${m}:${s.toString().padStart(2,'0')}`;
-    if (cd <= 0) loadData();
-  }, 1000);
+    if(cd<=0) loadData();
+  },1000);
 }
 
-async function loadData() {
-  document.getElementById('refreshBtn').disabled = true;
-  document.getElementById('statusText').textContent = '加载中...';
-  try {
-    const resp = await fetch(`./data.json?t=${Date.now()}`);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    data = await resp.json();
-    document.getElementById('updatedAt').textContent = '更新于 ' + (data.updatedAt||'-');
-    document.getElementById('statusText').textContent =
-      `推文 ${data.tweets.length} 条 · 新闻 ${data.news.length} 条`;
+async function loadData(){
+  document.getElementById('refreshBtn').disabled=true;
+  try{
+    const resp=await fetch(`./data.json?t=${Date.now()}`);
+    if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    data=await resp.json();
+    document.getElementById('updatedAt').textContent='更新于 '+(data.updatedAt||'-');
     render();
     startTimer();
-  } catch(e) {
-    document.getElementById('grid').innerHTML =
-      `<div class="error-box">⚠️ 加载失败: ${e.message}<br><small>data.json 尚未生成，等待首次推送（9:00-23:00 每小时更新）</small></div>`;
-    document.getElementById('statusText').textContent = '加载失败';
-  } finally {
-    document.getElementById('refreshBtn').disabled = false;
+  }catch(e){
+    document.getElementById('main').innerHTML=
+      `<div class="error-box">⚠️ 加载失败: ${e.message}<br><small>请确认网络正常，data.json 已生成</small></div>`;
+  }finally{
+    document.getElementById('refreshBtn').disabled=false;
   }
 }
 
