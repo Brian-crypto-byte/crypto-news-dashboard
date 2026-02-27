@@ -1,105 +1,158 @@
 {
-  "updatedAt": "2026-02-27 16:22",
-  "tweets": [
-    {
-      "id": "2026541332806910130",
-      "user": "Akirapunk99",
-      "text": "今日份给大家发开工红包 #币安社区基金 空投4W枚 #4Ball ，评论区选出5位幸运者，每人8000枚 #币安社区基金（豪华猪脚饭）\n\n只需关注 @CherryWang2024 ，点赞，转发，评论区留下你的BSC地址即可\n\n叙事:币安社区基金是通过 Butterfly 平台公平发行。其目标是创建首个支持 BSC https://t.co/zQAwuQLGUH",
-      "likes": 159,
-      "retweets": 147,
-      "url": ""
-    },
-    {
-      "id": "2026533871907668311",
-      "user": "QYUP666",
-      "text": "福利来了🧧，抽取15位幸运粉丝，每人空投10000 $BurnKing ，点赞/关注/转发即可参与！\nCA:0x0eec96a144dedeec98cbdc9e04fdef2ac349ffff\n\n#BurnKing（燃烧王）深度分析：一场由社区接力的“燃烧LP游戏”\n\n一. 什么是BurnKing？——是“税币”里的竞技实验 https://t.co/G3rizzU2vP",
-      "likes": 63,
-      "retweets": 28,
-      "url": ""
-    },
-    {
-      "id": "2025062829553025286",
-      "user": "Xi99665",
-      "text": "#潜龙勿用 \n\n中文预测市场上线\n\n国风MEME 迎来全新玩法\n\n情绪可博弈，期待有回响\n\n安静蓄力，静待飞龙在天\n\n属于中文社区的故事\n\n才刚刚开始 🚀\n\n你准备好了吗📈📈📈\n\n#潜龙勿用 #QLWY #中文MEME #预测市场 https://t.co/vJMPWFvFlR",
-      "likes": 20,
-      "retweets": 1,
-      "url": ""
-    },
-    {
-      "id": "2024106664429838409",
-      "user": "TamTarling58579",
-      "text": "德约合客深2贝圈坊 以比何莱太3矿空挖币投特.一🌻🐖🍐\n合约👣币圈\n比特币\n以太坊\n何一🤒23. 挖矿🍼空投\n贝莱德🔋深币👛币客 https://t.co/emJ9SAfz4L",
-      "likes": 0,
-      "retweets": 0,
-      "url": ""
-    }
-  ],
+  "updatedAt": "2026-02-27 16:26",
   "news": [
     {
-      "id": 940905,
-      "text": "Crypto News: Pepeto Presale Hits $7.33M as Whales Accumulate 400,000 Bitcoin and Now Target Meme Coin Presales",
+      "id": 513999,
+      "text": "Trump Media to Airdrop Crypto Tokens to Shareholders in February",
       "summary": "",
-      "score": 0,
-      "grade": "",
-      "signal": "neutral",
-      "source": "GlobeNewswire",
-      "link": "https://dbws.io/newsbot/i/nGNXY2FVM",
-      "ts": "2026-02-26T19:38:51.226737Z"
+      "score": 72,
+      "grade": "B+",
+      "signal": "long",
+      "source": "Decrypt",
+      "link": "https://decrypt.co/355174",
+      "ts": "2026-01-20T20:25:17.901459Z"
     },
     {
-      "id": 933129,
-      "text": "Bithumb LISTING:이더가스(GWEI) 원화마켓 추가 기념 에어드랍 이벤트\nBithumb LISTING:Ethergas (GWEI) 韩元市场新增纪念空投活动\n \n————————————\n2026-02-26 12:09:21\n\nhttps://feed.bithumb.c",
+      "id": 514002,
+      "text": "Trump Media to Airdrop Crypto Tokens to Shareholders in February",
       "summary": "",
-      "score": 0,
-      "grade": "",
-      "signal": "neutral",
-      "source": "twitter",
-      "link": "https://x.com/6551News/status/2026872190579425703",
-      "ts": "2026-02-26T04:09:22.807Z"
+      "score": 70,
+      "grade": "B+",
+      "signal": "long",
+      "source": "Decrypt",
+      "link": "https://decrypt.co/355174/trump-media-airdrop-crypto-tokens-shareholders-february",
+      "ts": "2026-01-20T20:25:23.825637Z"
     },
     {
-      "id": 859908,
-      "text": "Bithumb LISTING:[이벤트] 아즈텍(AZTEC) 원화마켓 추가 기념 에어드랍 이벤트\nBithumb LISTING:【活动】空投活动庆祝阿兹特克（AZTEC）加入韩元市场\n \n————————————\n2026-02-20 16:00:06\n\nhttps://feed.bith",
-      "summary": "",
-      "score": 0,
-      "grade": "",
-      "signal": "neutral",
-      "source": "twitter",
-      "link": "https://x.com/6551News/status/2024755930701975613",
-      "ts": "2026-02-20T08:00:07.198Z"
+      "id": 942415,
+      "text": "Circle shares tap $90 as Bernstein sees ‘clear divergence from crypto,’ Mizuho flags Polymarket boost https://www.theblock.co/post/391518/circle-shares-90-berns",
+      "summary": "Circle&#39;s stock price hit $90, with Bernstein arguing that it has a clear divergence from cryptocurrencies, and Mizuho pointing out that Polymarket",
+      "score": 65,
+      "grade": "B+",
+      "signal": "long",
+      "source": "tree",
+      "link": "https://twitter.com/TheBlockCo/status/2027140804758642906",
+      "ts": "2026-02-26T21:56:45.731Z"
     },
     {
-      "id": 725294,
-      "text": "Binance: Introducing Binance Wallet Alpha Box: A New Airdrop Experience Featuring Multiple Projects in One Pool\nBinance: 币安钱包 Alpha Box 全新上线：一个空投池，多个项",
-      "summary": "",
-      "score": 0,
-      "grade": "",
+      "id": 939569,
+      "text": "Kalshi investigates insider trading, a first for prediction markets",
+      "summary": "Kalshi&#39;s investigation into insider trading is unprecedented in the prediction market field.",
+      "score": 65,
+      "grade": "B",
       "signal": "neutral",
-      "source": "twitter",
-      "link": "https://x.com/6551News/status/2021147153432035796",
-      "ts": "2026-02-10T09:00:07.765Z"
+      "source": "phoenixnews",
+      "link": "https://www.semafor.com/article/02/26/2026/kalshi-investigates-insider-trading-in-a-first-for-prediction-markets",
+      "ts": "2026-02-26T17:30:57.87Z"
     },
     {
-      "id": 714780,
-      "text": "VeloNews:SOUTH KOREA BEGINS INVESTIGATIONS INTO BITHUMB AFTER 620,000 BTC AIRDROP ERROR, CITING EXPOSED \"STRUCTURAL VULNERABILITIES\"\nSource: Decrypt\nV",
-      "summary": "",
-      "score": 0,
-      "grade": "",
+      "id": 939298,
+      "text": "Prediction markets are drawing in major institutional interests but the regulatory path forward remains a question mark. Coinbase Head of Litigation @RVanGrack ",
+      "summary": "Prediction markets are attracting interest from major institutions, but the regulatory path remains uncertain. Coinbase&#39;s Head of Litigation, @RVa",
+      "score": 65,
+      "grade": "B+",
       "signal": "neutral",
-      "source": "twitter",
-      "link": "https://x.com/6551News/status/2020909646907834886",
-      "ts": "2026-02-09T17:16:21.807Z"
+      "source": "Twitter",
+      "link": "https://twitter.com/coindesk/status/2027066368265273577",
+      "ts": "2026-02-26T17:00:59.45016Z"
     },
     {
-      "id": 684090,
-      "text": "VeloNews:BITHUMB ACKNOWLEDGES IT AIRDROPPED LARGE AMOUNTS OF BTC TO CUSTOMERS - WHO SOLD IT - LEADING TO LARGE PRICE DROPS ON THE EXCHANGE\nSource: Vel",
-      "summary": "",
-      "score": 0,
-      "grade": "",
+      "id": 939296,
+      "text": "Prediction markets are drawing in major institutional interests but the regulatory path forward remains a question mark. Coinbase Head of Litigation @RVanGrack ",
+      "summary": "Prediction markets are attracting interest from major institutions, but the regulatory path remains unclear. Coinbase&#39;s Head of Litigation, RVanGr",
+      "score": 65,
+      "grade": "B+",
       "signal": "neutral",
-      "source": "twitter",
-      "link": "https://x.com/6551News/status/2019794505944404325",
-      "ts": "2026-02-06T15:25:11.458Z"
+      "source": "tree",
+      "link": "https://twitter.com/CoinDesk/status/2027066368265273577",
+      "ts": "2026-02-26T17:00:58.47Z"
+    },
+    {
+      "id": 939275,
+      "text": "Prediction Markets Under Fire: Coinbase vs. The States https://x.com/i/broadcasts/1qxoNeNamPyJv",
+      "summary": "Coinbase is embroiled in disputes with several U.S. states over prediction markets, which are facing regulatory pressure.",
+      "score": 65,
+      "grade": "B+",
+      "signal": "neutral",
+      "source": "Twitter",
+      "link": "https://twitter.com/coindesk/status/2027066212707123408",
+      "ts": "2026-02-26T17:00:21.944548Z"
+    },
+    {
+      "id": 939550,
+      "text": "Crypto Meme Coin Scandals: What Investors Should Watch Out For",
+      "summary": "The news story is about the cryptocurrency memecoin scandal and covers matters that investors should be wary of.",
+      "score": 65,
+      "grade": "B",
+      "signal": "neutral",
+      "source": "News Websites",
+      "link": "https://financefeeds.com/crypto-meme-coin-scandals/",
+      "ts": "2026-02-26T17:28:53.261771Z"
+    }
+  ],
+  "tweets": [
+    {
+      "id": 942415,
+      "user": "The Block (@TheBlockCo)",
+      "text": "Circle shares tap $90 as Bernstein sees ‘clear divergence from crypto,’ Mizuho flags Polymarket boost https://www.theblock.co/post/391518/circle-shares-90-bernstein-divergence-crypto-mizuho-polymarket",
+      "summary": "Circle&#39;s stock price hit $90, with Bernstein arguing that it has a clear divergence from cryptocurrencies, and Mizuho pointing out that Polymarket",
+      "score": 65,
+      "signal": "long",
+      "link": "https://twitter.com/TheBlockCo/status/2027140804758642906"
+    },
+    {
+      "id": 942417,
+      "user": "Blogs",
+      "text": "THE BLOCK: Circle shares tap $90 as Bernstein sees ‘clear divergence from crypto,’ Mizuho flags Polymarket boost",
+      "summary": "Circle&#39;s stock price hit $90, with Bernstein arguing that it has a clear divergence from cryptocurrencies, and Mizuho pointing out that Polymarket",
+      "score": 65,
+      "signal": "long",
+      "link": ""
+    },
+    {
+      "id": 937332,
+      "user": "zachxbt",
+      "text": "7/ Broox's main wallet was identified via messages sent in a private chat and all directly related addresses were graphed out.<br/><br/>FarpaWkzio7WQVpQeu2eURvNQZ3pCBZupJ95wUjoHcUN<br/><br/>Due to the",
+      "summary": "Broox&#39;s main wallet was identified through private chat messages, and related addresses were mapped. Because the associated addresses were involve",
+      "score": 65,
+      "signal": "neutral",
+      "link": "https://twitter.com/zachxbt/status/2027016255534960810"
+    },
+    {
+      "id": 937331,
+      "user": "zachxbt",
+      "text": "6/ One of the targeted KOLs was Marcell, a trader with a poor reputation for using his followers on X and Telegram as exit liquidity.<br/><br/>He was targeted due to buying a large portion of the toke",
+      "summary": "Marcell, a trader with a poor reputation, was targeted as a KOL because he bought large amounts of token supply from a private wallet (i.e., a bundlin",
+      "score": 65,
+      "signal": "neutral",
+      "link": "https://twitter.com/zachxbt/status/2027016239265300490"
+    },
+    {
+      "id": 793771,
+      "user": "Blogs",
+      "text": "DECRYPT: Can Meme Coins Power a Senate Bid? Virginia’s Mark Moran Says Yes",
+      "summary": "Mark Moran of Virginia asked whether memes could help in a Senate election. He gave a positive answer.",
+      "score": 65,
+      "signal": "neutral",
+      "link": ""
+    },
+    {
+      "id": 793767,
+      "user": "Blogs",
+      "text": "DECRYPT: Can Meme Coins Power a Senate Bid? Virginia's Mark Moran Says Yes",
+      "summary": "Mark Moran of Virginia said he would give an affirmative answer as to whether memes could help his Senate campaign.",
+      "score": 65,
+      "signal": "neutral",
+      "link": ""
+    },
+    {
+      "id": 939298,
+      "user": "coindesk",
+      "text": "Prediction markets are drawing in major institutional interests but the regulatory path forward remains a question mark. Coinbase Head of Litigation @RVanGrack joins hosts @JennSanasie and @renato_mar",
+      "summary": "Prediction markets are attracting interest from major institutions, but the regulatory path remains uncertain. Coinbase&#39;s Head of Litigation, @RVa",
+      "score": 65,
+      "signal": "neutral",
+      "link": "https://twitter.com/coindesk/status/2027066368265273577"
     }
   ]
 }
