@@ -1,0 +1,103 @@
+{
+  "updatedAt": "2026-02-27 20:20",
+  "summary": {
+    "24h": 5,
+    "48h": 0,
+    "7d": 1
+  },
+  "markets": [
+    {
+      "id": "38900",
+      "title": "Will Russia capture all of Pokrovsk by...?",
+      "question": "Will Russia capture all of Pokrovsk by September 30?",
+      "endDate": "2026-02-28T00:00:00Z",
+      "hoursLeft": 11.7,
+      "window": "24h",
+      "odds": {
+        "Yes": 0.0,
+        "No": 100.0
+      },
+      "liquidity": 36764.0,
+      "volume": 4788999.0,
+      "link": "https://polymarket.com/event/will-russia-capture-all-of-pokrovsk-by-september-30",
+      "prediction": "距结束还有 11.7 小时，市场高度倾向于「No」（100.0%），但历史告诉我们，高概率事件仍有约0%的失败空间。 需警惕黑天鹅：信息不对称、突发事件或市场操纵均可能逆转结果。"
+    },
+    {
+      "id": "20461",
+      "title": "Will GTA 6 cost $100+?",
+      "question": "Will GTA 6 cost $100+?",
+      "endDate": "2026-02-28T12:00:00Z",
+      "hoursLeft": 23.7,
+      "window": "24h",
+      "odds": {
+        "Yes": 0.1,
+        "No": 99.9
+      },
+      "liquidity": 262470.0,
+      "volume": 6853900.0,
+      "link": "https://polymarket.com/event/will-gta-6-cost-100",
+      "prediction": "距结束还有 23.7 小时，市场高度倾向于「No」（99.9%），但历史告诉我们，高概率事件仍有约0%的失败空间。 需警惕黑天鹅：信息不对称、突发事件或市场操纵均可能逆转结果。"
+    },
+    {
+      "id": "21206",
+      "title": "Rojas guilty in Texas illegal abortion case?",
+      "question": "Rojas guilty in Texas illegal abortion case?",
+      "endDate": "2026-02-28T12:00:00Z",
+      "hoursLeft": 23.7,
+      "window": "24h",
+      "odds": {
+        "Yes": 1.2,
+        "No": 98.8
+      },
+      "liquidity": 3222.0,
+      "volume": 60717.0,
+      "link": "https://polymarket.com/event/rojas-guilty-in-texas-illegal-abortion-case",
+      "prediction": "距结束还有 23.7 小时，市场高度倾向于「No」（98.8%），但历史告诉我们，高概率事件仍有约1%的失败空间。 需警惕黑天鹅：信息不对称、突发事件或市场操纵均可能逆转结果。"
+    },
+    {
+      "id": "22862",
+      "title": "How much revenue will the U.S. raise from tariffs in 2025?",
+      "question": "Will the U.S. collect less than $100b in revenue in 2025?",
+      "endDate": "2026-02-28T12:00:00Z",
+      "hoursLeft": 23.7,
+      "window": "24h",
+      "odds": {
+        "Yes": 99.1,
+        "No": 0.9
+      },
+      "liquidity": 243826.0,
+      "volume": 8787469.0,
+      "link": "https://polymarket.com/event/how-much-revenue-will-the-us-raise-from-tariffs-in-2025",
+      "prediction": "距结束还有 23.7 小时，市场高度倾向于「Yes」（99.1%），但历史告诉我们，高概率事件仍有约1%的失败空间。 需警惕黑天鹅：信息不对称、突发事件或市场操纵均可能逆转结果。"
+    },
+    {
+      "id": "22863",
+      "title": "Will tariffs generate >$250b in 2025?",
+      "question": "Will tariffs generate >$250b in 2025?",
+      "endDate": "2026-02-28T12:00:00Z",
+      "hoursLeft": 23.7,
+      "window": "24h",
+      "odds": {
+        "Yes": 0.1,
+        "No": 99.9
+      },
+      "liquidity": 27069.0,
+      "volume": 1365763.0,
+      "link": "https://polymarket.com/event/will-tariffs-generate-250b-in-2025",
+      "prediction": "距结束还有 23.7 小时，市场高度倾向于「No」（99.9%），但历史告诉我们，高概率事件仍有约0%的失败空间。 需警惕黑天鹅：信息不对称、突发事件或市场操纵均可能逆转结果。"
+    },
+    {
+      "id": "31889",
+      "title": "Texas Republican Senate Primary Winner",
+      "question": "Will Person K win the 2026 Republican Primary?",
+      "endDate": "2026-03-03T00:00:00Z",
+      "hoursLeft": 83.7,
+      "window": "7d",
+      "odds": {},
+      "liquidity": 235710.0,
+      "volume": 4534989.0,
+      "link": "https://polymarket.com/event/texas-republican-senate-primary-winner",
+      "prediction": "数据不足，无法评估概率。市场尚未形成有效共识。"
+    }
+  ]
+}
