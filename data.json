@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-27 16:26",
+  "updatedAt": "2026-02-27 16:27",
   "news": [
     {
       "id": 513999,
@@ -11,17 +11,6 @@
       "source": "Decrypt",
       "link": "https://decrypt.co/355174",
       "ts": "2026-01-20T20:25:17.901459Z"
-    },
-    {
-      "id": 514002,
-      "text": "Trump Media to Airdrop Crypto Tokens to Shareholders in February",
-      "summary": "",
-      "score": 70,
-      "grade": "B+",
-      "signal": "long",
-      "source": "Decrypt",
-      "link": "https://decrypt.co/355174/trump-media-airdrop-crypto-tokens-shareholders-february",
-      "ts": "2026-01-20T20:25:23.825637Z"
     },
     {
       "id": 942415,
@@ -57,17 +46,6 @@
       "ts": "2026-02-26T17:00:59.45016Z"
     },
     {
-      "id": 939296,
-      "text": "Prediction markets are drawing in major institutional interests but the regulatory path forward remains a question mark. Coinbase Head of Litigation @RVanGrack ",
-      "summary": "Prediction markets are attracting interest from major institutions, but the regulatory path remains unclear. Coinbase&#39;s Head of Litigation, RVanGr",
-      "score": 65,
-      "grade": "B+",
-      "signal": "neutral",
-      "source": "tree",
-      "link": "https://twitter.com/CoinDesk/status/2027066368265273577",
-      "ts": "2026-02-26T17:00:58.47Z"
-    },
-    {
       "id": 939275,
       "text": "Prediction Markets Under Fire: Coinbase vs. The States https://x.com/i/broadcasts/1qxoNeNamPyJv",
       "summary": "Coinbase is embroiled in disputes with several U.S. states over prediction markets, which are facing regulatory pressure.",
@@ -88,6 +66,28 @@
       "source": "News Websites",
       "link": "https://financefeeds.com/crypto-meme-coin-scandals/",
       "ts": "2026-02-26T17:28:53.261771Z"
+    },
+    {
+      "id": 937332,
+      "text": "7/ Broox's main wallet was identified via messages sent in a private chat and all directly related addresses were graphed out.<br/><br/>FarpaWkzio7WQVpQeu2eURvN",
+      "summary": "Broox&#39;s main wallet was identified through private chat messages, and related addresses were mapped. Because the associated addresses were involve",
+      "score": 65,
+      "grade": "B+",
+      "signal": "neutral",
+      "source": "Twitter",
+      "link": "https://twitter.com/zachxbt/status/2027016255534960810",
+      "ts": "2026-02-26T13:41:51.329623Z"
+    },
+    {
+      "id": 937331,
+      "text": "6/ One of the targeted KOLs was Marcell, a trader with a poor reputation for using his followers on X and Telegram as exit liquidity.<br/><br/>He was targeted d",
+      "summary": "Marcell, a trader with a poor reputation, was targeted as a KOL because he bought large amounts of token supply from a private wallet (i.e., a bundlin",
+      "score": 65,
+      "grade": "B",
+      "signal": "neutral",
+      "source": "Twitter",
+      "link": "https://twitter.com/zachxbt/status/2027016239265300490",
+      "ts": "2026-02-26T13:41:48.169265Z"
     }
   ],
   "tweets": [
